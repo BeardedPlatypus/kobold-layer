@@ -22,7 +22,7 @@ steps:
   inputs:  
     targetType: 'inline'
     script: |
-      (New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$(sonarScannerVersion)-windows.zip", "$(sonarScannerZipPath)")
+      (New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-windows.zip", "$(sonarScannerZipPath)")
 
 - task: ExtractFiles@1
   inputs:
