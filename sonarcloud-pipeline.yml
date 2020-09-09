@@ -1,0 +1,110 @@
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
+  buildPlatform: 'x64'
+  buildConfiguration: 'Debug'
+  buildWrapperOutputDir: '$(Build.SourcesDirectory)/build_wrapper_output_directory'
+  msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+  coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
+  coverageOutputLocation: '$(Build.SourcesDirectory)\TestResults'
+  toolsLocation: '$(Build.SourcesDirectory)\tools'
+  coverageFiles: '$(coverageOutputLocation)\*.xml'
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $env:SONAR_SCANNER_VERSION = "4.4.0.2170"
+      $env:SONAR_DIRECTORY = [System.IO.Path]::Combine($(get-location).Path,".sonar")
+      $env:SONAR_SCANNER_HOME = "$env:SONAR_DIRECTORY/sonar-scanner-$env:SONAR_SCANNER_VERSION-windows"
+      rm $env:SONAR_SCANNER_HOME -Force -Recurse -ErrorAction SilentlyContinue
+      New-Item -path $env:SONAR_SCANNER_HOME -type directory
+      (New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$env:SONAR_SCANNER_VERSION-windows.zip", "$env:SONAR_DIRECTORY/sonar-scanner.zip")
+      Add-Type -AssemblyName System.IO.Compression.FileSystem
+      [System.IO.Compression.ZipFile]::ExtractToDirectory("$env:SONAR_DIRECTORY/sonar-scanner.zip", "$env:SONAR_DIRECTORY")
+      rm ./.sonar/sonar-scanner.zip -Force -ErrorAction SilentlyContinue
+      $env:SONAR_SCANNER_OPTS="-server"
+      
+      rm "$env:SONAR_DIRECTORY/build-wrapper-win-x86" -Force -Recurse -ErrorAction SilentlyContinue
+      (New-Object System.Net.WebClient).DownloadFile("https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip", "$env:SONAR_DIRECTORY/build-wrapper-win-x86.zip")
+      [System.IO.Compression.ZipFile]::ExtractToDirectory("$env:SONAR_DIRECTORY/build-wrapper-win-x86.zip", "$env:SONAR_DIRECTORY")
+
+#- task: UsePythonVersion@0
+#  displayName: Set up python version.
+#  inputs:
+#    versionSpec: '3.x'
+#    addToPath: true
+#    architecture: 'x64'
+
+#- task: CmdLine@2
+#  displayName: Coverage - Create .coverage output directory.
+#  inputs:
+#    script: 'mkdir $(coverageOutputLocation)'
+
+#- task: DownloadPipelineArtifact@2
+#  displayName: Coverage - Download .coverage artifacts
+#  inputs:
+#    buildType: 'specific'
+#    project: '41987b1d-47e2-4fea-90ac-c2b42d11a558'
+#    definition: '1'
+#    specificBuildWithTriggering: true
+#    buildVersionToDownload: 'latest'
+#    artifactName: 'coverage'
+#    itemPattern: '**/*.coverage'
+#    targetPath: '$(coverageDownloadLocation)'
+
+#- task: PythonScript@0
+#  displayName: Coverage - Convert .coverage files to .xml
+#  inputs:
+#    scriptSource: 'filePath'
+#    scriptPath: '$(toolsLocation)/convert_coverage.py'
+#    arguments: '$(coverageDownloadLocation)'
+#    workingDirectory: '$(coverageOutputLocation)'
+
+#- task: PublishPipelineArtifact@0
+#  displayName: Coverage - Publish .xml files
+#  inputs:
+#    artifactName: 'convertedCoverage'
+#    targetPath: '$(coverageOutputLocation)'
+
+- script: |
+    vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
+    vcpkg integrate install
+  displayName: vcpkg
+
+- task: NuGetToolInstaller@0
+  displayName: 'Nuget - Install'
+
+- task: NuGetCommand@2
+  displayName: 'Nuget - Restore Packages'
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: SonarCloudPrepare@1
+  displayName: 'SonarCloud - Prepare'
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'beardedplatypus'
+    scannerMode: 'MSBuild'
+    projectKey: 'BeardedPlatypus_kobold-layer'
+    projectName: 'kobold-layer'
+    extraProperties: |
+      sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+      sonar.cfamily.cache.enabled=false
+
+- task: PowerShell@2
+  displayName: MSBuild
+  inputs:
+    targetType: 'inline'
+    script: '& $env:SONAR_DIRECTORY/build-wrapper-win-x86/build-wrapper-win-x86-64.exe --out-dir $(buildWrapperOutputDir) "$(msBuildExe)" $(solution) -nologo -p:Configuration=$(buildConfiguration) -p:Platform=$(buildPlatform)'
+
+- task: SonarCloudAnalyze@1
+  displayName: 'SonarCloud - Analyze'
+
+- task: SonarCloudPublish@1
+  displayName: 'SonarCloud - Publish'
+  inputs:
+    pollingTimeoutSec: '300'
