@@ -18,22 +18,15 @@ variables:
 
 steps:
 - task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'New-Item -ItemType directory -Path $(SonarDirectory)'
-
-- task: PowerShell@2
   displayName: 'SonarCloud - Download C++ sonar scanner'
   inputs:  
     targetType: 'inline'
     script: |
+      'New-Item -ItemType directory -Path $(SonarDirectory)'
       '(New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$(sonarScannerVersion)-windows.zip", "$(sonarScannerZipPath)")'
+      'Add-Type -AssemblyName System.IO.Compression.FileSystem'
+      '[System.IO.Compression.ZipFile]::ExtractToDirectory("$(sonarScannerZipPath)", "$(sonarDirectory)")'
 
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: '$(sonarScannerZipPath)'
-    destinationFolder: '$(sonarDirectory)'
-    cleanDestinationFolder: false
 
 #- task: UsePythonVersion@0
 #  displayName: Set up python version.
