@@ -18,11 +18,16 @@ variables:
 
 steps:
 - task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'New-Item -ItemType directory -Path $(SonarDirectory)'
+
+- task: PowerShell@2
   displayName: 'SonarCloud - Download C++ sonar scanner'
   inputs:  
     targetType: 'inline'
     script: |
-      (New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-windows.zip", "./.sonar/sonar-scanner.zip")
+      '(New-Object System.Net.WebClient).DownloadFile("https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$(sonarScannerVersion)-windows.zip", "$(sonarScannerZipPath)")'
 
 - task: ExtractFiles@1
   inputs:
