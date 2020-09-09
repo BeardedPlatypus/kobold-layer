@@ -1,0 +1,50 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  solution: '**/kobold-layer.sln'
+
+jobs:
+- job: debug
+
+  variables:
+    buildPlatform: 'x64'
+    buildConfiguration: 'Debug'
+    testResults: '$(Build.SourcesDirectory)/TestResults'
+
+  steps:
+  - script: |
+      vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
+      vcpkg integrate install
+    displayName: vcpkg
+  - task: NuGetToolInstaller@0
+    displayName: 'Nuget - Install'
+
+  - task: NuGetCommand@2
+    displayName: 'Nuget - Restore Packages'
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    displayName: 'Build - Executables'
+    inputs:
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+  - task: CopyFiles@2
+    displayName: 'Build - Copy DLLs'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/x64/$(buildConfiguration)/'
+      Contents: '*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      CleanTargetFolder: true
+    
+  - task: PublishPipelineArtifact@0
+    displayName: 'Build - Publish DLLs'
+    inputs:
+      artifactName: 'DebugArtefacts'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
