@@ -5,9 +5,7 @@ variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Debug'
-  sonarDirectory: '$(Build.SourcesDirectory)\sonar'
-  buildWrapperZipPath: '$(sonardirectory)\build-wrapper.zip'
-  buildWrapperExe: '$(sonarDirectory)\build-wrapper-win-x86\build-wrapper-win-x86-64.exe'
+  buildWrapperExe: '$(Build.SourcesDirectory)\tools\build-wrapper-win-x86-64.exe'
   buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
   coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
@@ -16,16 +14,6 @@ variables:
   coverageFiles: '$(coverageOutputLocation)\*.xml'
 
 steps:
-- task: PowerShell@2
-  displayName: 'SonarCloud - Download C++ sonar scanner'
-  inputs:  
-    targetType: 'inline'
-    script: |
-      'New-Item -ItemType directory -Path $(SonarDirectory)'
-      '(New-Object System.Net.WebClient).DownloadFile("https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip", "$(buildWrapperZipPath)")'
-      'Add-Type -AssemblyName System.IO.Compression.FileSystem'
-      '[System.IO.Compression.ZipFile]::ExtractToDirectory("$(buildWrapperZipPath)", "$(sonarDirectory)")'
-
 #- task: UsePythonVersion@0
 #  displayName: Set up python version.
 #  inputs:
