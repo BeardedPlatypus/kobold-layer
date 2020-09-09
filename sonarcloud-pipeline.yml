@@ -8,7 +8,7 @@ variables:
   sonarDirectory: '$(Build.SourcesDirectory)/.sonar'
   sonarScannerVersion: '4.4.0.2170'
   sonarScannerZipPath: '$(sonardirectory)/sonar-scanner.zip'
-  buildWrapperExe: '$(sonarDirectory)/build-wrapper-win-x86/build-wrapper-win-x86-64.exe'
+  buildWrapperExe: '$(sonarDirectory)/**/build-wrapper-win-x86-64.exe'
   buildWrapperOutputDir: '$(Build.SourcesDirectory)/build_wrapper_output_directory'
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
   coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
