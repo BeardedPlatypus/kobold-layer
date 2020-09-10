@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="include\kobold-layer.nucleus\sdl-util\resource_wrapper.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\sdl-util\sdl_destructor.hpp" />
   </ItemGroup>
