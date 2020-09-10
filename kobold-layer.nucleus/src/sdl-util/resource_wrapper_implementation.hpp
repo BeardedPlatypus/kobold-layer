@@ -24,8 +24,8 @@ namespace kobold_layer::nucleus::sdl_util {
 		resource_wrapper_implementation(const resource_wrapper_implementation&) = delete;
 		resource_wrapper_implementation& operator=(const resource_wrapper_implementation&) = delete;
 
-		resource_wrapper_implementation(resource_wrapper_implementation&& resource_wrapper) noexcept;
-		resource_wrapper_implementation& operator=(resource_wrapper_implementation&& resource_wrapper) noexcept;
+		resource_wrapper_implementation(resource_wrapper_implementation&& resource_wrapper) noexcept = default;
+		resource_wrapper_implementation& operator=(resource_wrapper_implementation&& resource_wrapper) noexcept = default;
 
 
 		T* get_resource() const override;
