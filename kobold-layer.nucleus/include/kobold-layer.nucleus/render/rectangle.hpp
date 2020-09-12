@@ -26,33 +26,21 @@ namespace kobold_layer::nucleus::render
 		/// <summary>
 		/// The x position of the origin of this <see cref="rectangle"/>.
 		/// </summary>
-		/// <returns>
-		/// The x position of the origin of this <see cref="rectangle"/>.
-		/// </returns>
 		const int x;
 
 		/// <summary>
 		/// The y position of the origin of the <see cref="rectangle"/>.
 		/// </summary>
-		/// <returns>
-		/// The y position of the origin of the <see cref="rectangle"/>.
-		/// </returns>
 		const int y;
 
 		/// <summary>
 		/// The width of this <see cref="rectangle"/>.
 		/// </summary>
-		/// <returns>
-		/// The width of this <see cref="rectangle"/>
-		/// </returns>
 		const int width;
 
 		/// <summary>
 		/// The height of this <see cref="rectangle"/>.
 		/// </summary>
-		/// <returns>
-		/// The height of this <see cref="rectangle"/>
-		/// </returns>
 		const int height;
 	};
 }
