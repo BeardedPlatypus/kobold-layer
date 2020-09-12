@@ -21,7 +21,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\resource_wrapper.mock.hpp">
+    <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\sdl_dispatcher_mock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\resource_wrapper_mock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
