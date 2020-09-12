@@ -45,7 +45,7 @@
     <ClInclude Include="src\render\renderer_implementation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kobold-layer.nucleus\sdl-util\sdl_conversion.hpp">
+    <ClInclude Include="src\sdl-util\sdl_conversion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

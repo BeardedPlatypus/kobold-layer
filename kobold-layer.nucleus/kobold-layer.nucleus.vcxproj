@@ -163,7 +163,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\render\renderer_implementation.hpp" />
     <ClInclude Include="src\sdl-util\resource_wrapper_implementation.hpp" />
-    <ClInclude Include="include\kobold-layer.nucleus\sdl-util\sdl_conversion.hpp" />
+    <ClInclude Include="src\sdl-util\sdl_conversion.hpp" />
     <ClInclude Include="src\sdl-util\sdl_destructor.hpp" />
     <ClInclude Include="src\sdl-util\sdl_dispatcher_implementation.hpp" />
   </ItemGroup>

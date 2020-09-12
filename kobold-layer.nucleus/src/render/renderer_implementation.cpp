@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "renderer_implementation.hpp"
 
-#include "kobold-layer.nucleus/sdl-util/sdl_conversion.hpp"
+#include "../sdl-util/sdl_conversion.hpp"
 
 namespace kobold_layer::nucleus::render
 {

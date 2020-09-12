@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "kobold-layer.nucleus/sdl-util/sdl_conversion.hpp"
+#include "sdl-util/sdl_conversion.hpp"
 #include "kobold-layer.nucleus/render/rectangle.hpp"
 
 using ::testing::Eq;
