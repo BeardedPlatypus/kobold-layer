@@ -24,5 +24,8 @@
     <ClCompile Include="src\sdl-util\sdl_conversion.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\renderer.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

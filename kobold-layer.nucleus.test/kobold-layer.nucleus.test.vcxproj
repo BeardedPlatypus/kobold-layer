@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>GTEST_LINKED_AS_SHARED_LIBRARY;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus.mock\include;$(SolutionDir)kobold-layer.nucleus\src;$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +138,7 @@
       <PreprocessorDefinitions>GTEST_LINKED_AS_SHARED_LIBRARY;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus.mock\include;$(SolutionDir)kobold-layer.nucleus\src;$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="kobold-layer.nucleus.test.cpp" />
     <ClCompile Include="src\render\rectangle.test.cpp" />
+    <ClCompile Include="src\render\renderer.test.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion.test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
