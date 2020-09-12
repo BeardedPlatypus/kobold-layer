@@ -154,9 +154,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="kobold-layer.nucleus.test.cpp" />
-    <ClCompile Include="src\render\rectangle.test.cpp" />
-    <ClCompile Include="src\render\renderer.test.cpp" />
-    <ClCompile Include="src\sdl-util\sdl_conversion.test.cpp" />
+    <ClCompile Include="src\render\rectangle_test.cpp" />
+    <ClCompile Include="src\render\renderer_test.cpp" />
+    <ClCompile Include="src\sdl-util\sdl_conversion_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

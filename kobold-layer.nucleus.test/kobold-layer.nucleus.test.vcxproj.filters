@@ -18,13 +18,13 @@
     <ClCompile Include="kobold-layer.nucleus.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\rectangle.test.cpp">
+    <ClCompile Include="src\render\rectangle_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\sdl-util\sdl_conversion.test.cpp">
+    <ClCompile Include="src\render\renderer_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\renderer.test.cpp">
+    <ClCompile Include="src\sdl-util\sdl_conversion_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
