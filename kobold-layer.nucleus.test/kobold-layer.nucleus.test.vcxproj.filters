@@ -18,5 +18,8 @@
     <ClCompile Include="kobold-layer.nucleus.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\rectangle.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
