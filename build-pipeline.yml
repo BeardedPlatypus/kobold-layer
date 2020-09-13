@@ -8,19 +8,26 @@ variables:
   solution: '**/kobold-layer.sln'
 
 jobs:
-- job: debug
+- job: QualityVerification
 
   variables:
     buildPlatform: 'x64'
     buildConfiguration: 'Debug'
-    codeCoverageLocationRunsettings: '$(Build.SourcesDirectory)/code_coverage_loc.runsettings'
-    testResults: '$(Build.SourcesDirectory)/TestResults'
+    codeCoverageLocationRunsettings: '$(Build.SourcesDirectory)\code_coverage_loc.runsettings'
+    testResults: '$(Build.SourcesDirectory)\TestResults'
+    buildWrapperExe: '$(Build.SourcesDirectory)\tools\build-wrapper-win-x86-64.exe'
+    buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
+    msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+    coverageOutputLocation: '$(Build.SourcesDirectory)\coverageOutput'
+    toolsLocation: '$(Build.SourcesDirectory)\tools'
+    coverageFiles: '$(coverageOutputLocation)\*.xml'
 
   steps:
   - script: |
       vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
       vcpkg integrate install
     displayName: vcpkg
+
   - task: NuGetToolInstaller@0
     displayName: 'Nuget - Install'
 
@@ -29,12 +36,25 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
 
-  - task: VSBuild@1
-    displayName: 'Build - Executables'
+  - task: SonarCloudPrepare@1
+    displayName: 'SonarCloud - Prepare'
     inputs:
-      solution: '$(solution)'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
+      SonarCloud: 'sonarcloud'
+      organization: 'beardedplatypus'
+      scannerMode: 'MSBuild'
+      projectKey: 'BeardedPlatypus_kobold-layer'
+      projectName: 'kobold-layer'
+      extraProperties: |
+        sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+        sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
+        sonar.cfamily.cache.enabled=false
+        sonar.cfamily.threads=1
+
+  - task: PowerShell@2
+    displayName: MSBuild
+    inputs:
+      targetType: 'inline'
+      script: '& $(buildWrapperExe) --out-dir $(buildWrapperOutputDir) "$(msBuildExe)" $(solution) -nologo -p:Configuration=$(buildConfiguration) -p:Platform=$(buildPlatform)'
 
   - task: CopyFiles@2
     displayName: 'Build - Copy DLLs'
@@ -94,3 +114,25 @@ jobs:
     inputs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
+
+  - task: PythonScript@0
+    displayName: Coverage - Convert .coverage files to .xml
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(toolsLocation)/convert_coverage.py'
+      arguments: '$(testResults)'
+      workingDirectory: '$(coverageOutputLocation)'
+
+  - task: PublishPipelineArtifact@0
+    displayName: Coverage - Publish .xml files
+    inputs:
+      artifactName: 'convertedCoverage'
+      targetPath: '$(coverageOutputLocation)'
+
+  - task: SonarCloudAnalyze@1
+    displayName: 'SonarCloud - Analyze'
+
+  - task: SonarCloudPublish@1
+    displayName: 'SonarCloud - Publish'
+    inputs:
+      pollingTimeoutSec: '300'
