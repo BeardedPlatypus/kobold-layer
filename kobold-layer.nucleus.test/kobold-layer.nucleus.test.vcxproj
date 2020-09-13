@@ -158,6 +158,9 @@
     <ClCompile Include="src\render\renderer_test.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion_test.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
