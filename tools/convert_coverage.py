@@ -65,7 +65,7 @@ def convert_coverage_to_xml(code_coverage_exe: Path,
     """
     output_file_path = coverage_path.with_suffix(".xml")
     coverage_convert_cmd = f'"{str(code_coverage_exe)}" analyze /output:{output_file_path.name} {coverage_path.name}'
-    print(f"coverage path:\n  {coverage_convert_cmd}")
+    print(f"##[debug] coverage path:\n  {coverage_convert_cmd}")
 
     encoding = "utf-8"
     p = subprocess.run(coverage_convert_cmd,
@@ -74,11 +74,11 @@ def convert_coverage_to_xml(code_coverage_exe: Path,
                        stdout=subprocess.PIPE,
                        stderr=subprocess.PIPE)
 
-    print("stdout:")
-    print(f"{str(p.stdout)}\n")
+    print("##[debug] stdout:")
+    print(f"##[debug] {str(p.stdout)}\n")
 
-    print("stderr:")
-    print(f"{str(p.stderr)}\n")
+    print("##[debug] stderr:")
+    print(f"##[debug] {str(p.stderr)}\n")
 
 
 def run(coverage_dir: Path) -> None:
@@ -91,7 +91,7 @@ def run(coverage_dir: Path) -> None:
     """
     coverage_exe = get_coverage_exe_path()
 
-    print(str(coverage_dir))
+    print("##[debug] " + str(coverage_dir))
     src_coverage_files = find_coverage_files(coverage_dir)
     copy_coverage_files_to_cwd(src_coverage_files)
 
