@@ -115,6 +115,11 @@ jobs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
 
+  - task: CmdLine@2
+    displayName: Coverage - Create .coverage output directory.
+    inputs:
+      script: 'mkdir $(coverageOutputLocation)'
+
   - task: PythonScript@0
     displayName: Coverage - Convert .coverage files to .xml
     inputs:
