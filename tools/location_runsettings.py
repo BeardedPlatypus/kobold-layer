@@ -7,13 +7,13 @@ RUNSETTINGS_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
   <RunConfiguration>
     <ResultsDirectory>{}</ResultsDirectory>
   </RunConfiguration>
-</RunSettings>
+</RunSettings> 
 """
 
 def generate_runsettings(runsettings_path: Path, results_dir: Path) -> None:
     """
     Generate a runsettings file specifying the ResultsDirectory results_dir
-    aat the runsettings_path location.
+    at the runsettings_path location.
 
     Parameters:
         runsettings_path (Path): Path to where the file will be generated.
@@ -27,8 +27,8 @@ def generate_runsettings(runsettings_path: Path, results_dir: Path) -> None:
 
 def run(runsettings_path: Path, results_dir: Path) -> None:
     """
-    Generate a runsettings file at the specified path.
-    Generate the directory in which the results will be generated.
+    Generate a runsettings file at the specified path and the directory in 
+    which the results will be generated.
 
     Parameters:
         runsettings_path (Path): Path to where the file will be generated.
