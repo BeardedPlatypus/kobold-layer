@@ -50,7 +50,7 @@ namespace kobold_layer::nucleus::sdl_util
     std::unique_ptr<resource_wrapper<SDL_Window>> sdl_dispatcher_implementation::create_window(
         const void* p_native_window) const
     {
-	    auto* const p_window = SDL_CreateWindowFrom(p_native_window);
+        auto* const p_window = SDL_CreateWindowFrom(p_native_window);
         return construct_resource(p_window);
     }
 
@@ -60,7 +60,7 @@ namespace kobold_layer::nucleus::sdl_util
         const int index,
         const unsigned int flags) const
     {
-	    auto* const p_renderer = SDL_CreateRenderer(p_window, index, flags);
+        auto* const p_renderer = SDL_CreateRenderer(p_window, index, flags);
         return construct_resource(p_renderer);
     }
 

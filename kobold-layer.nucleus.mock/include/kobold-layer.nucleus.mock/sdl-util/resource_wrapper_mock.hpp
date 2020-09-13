@@ -6,7 +6,7 @@ template<typename T>
 class resource_wrapper_mock final : public kobold_layer::nucleus::sdl_util::resource_wrapper<T>
 {
 public:
-	MOCK_METHOD(T*, get_resource, (), (const));
+    MOCK_METHOD(T*, get_resource, (), (const));
 };
 
 template class resource_wrapper_mock<SDL_Window>;
