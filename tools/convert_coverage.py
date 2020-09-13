@@ -93,11 +93,17 @@ def run(coverage_dir: Path) -> None:
 
     print("##[debug] " + str(coverage_dir))
     src_coverage_files = find_coverage_files(coverage_dir)
+
+    print("##[debug] Src coverage files:")
+    for cov in src_coverage_files:
+        print(f"##[Debug] {str(cov)}")
+
     copy_coverage_files_to_cwd(src_coverage_files)
 
     cwd_coverage_files = find_coverage_files(".")
 
     for coverage_path in cwd_coverage_files:
+        print(f"##[Debug] {str(cov)}")
         convert_coverage_to_xml(coverage_exe, coverage_path)
 
 
