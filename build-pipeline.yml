@@ -13,6 +13,7 @@ jobs:
   variables:
     buildPlatform: 'x64'
     buildConfiguration: 'Debug'
+    codeCoverageLocationRunsettings: '$(Build.SourcesDirectory)/code_coverage_loc.runsettings'
     testResults: '$(Build.SourcesDirectory)/TestResults'
 
   steps:
@@ -48,3 +49,48 @@ jobs:
     inputs:
       artifactName: 'DebugArtefacts'
       targetPath: '$(Build.ArtifactStagingDirectory)'
+
+  - task: VisualStudioTestPlatformInstaller@1
+    displayName: 'Test - Install'
+    inputs:
+      packageFeedSelector: 'nugetOrg'
+      versionSelector: 'latestStable'
+
+  - task: UsePythonVersion@0
+    displayName: 'Test - Set up Python'
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+      architecture: 'x64'
+
+  - task: PythonScript@0
+    displayName: 'Test - Generate .runsettings'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(Build.SourcesDirectory)/tools/location_runsettings.py'
+      arguments: '$(codeCoverageLocationRunsettings) $(testResults)'
+
+  - task: VSTest@2
+    displayName: 'Test - Run'
+    inputs:
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      testAssemblyVer2: |
+        **\x64\$(buildConfiguration)\*.test.exe
+        !**\*TestAdapter.dll
+        !**\obj\**
+        !**\x64\$(buildConfiguration)\gmock.dll
+        !**\x64\$(buildConfiguration)\gmockd.dll
+        !**\x64\$(buildConfiguration)\ljwhost.dll
+        !**\x64\$(buildConfiguration)\libpng16.dll
+        !**\x64\$(buildConfiguration)\SDL2.dll
+        !**\x64\$(buildConfiguration)\SDL2_image.dll
+        !**\x64\$(buildConfiguration)\zlib1.dll
+      codeCoverageEnabled: true
+      runSettingsFile: '$(codeCoverageLocationRunsettings)'
+
+  - task: PublishPipelineArtifact@0
+    displayName: 'Test - Publish .coverage files'
+    inputs:
+      artifactName: 'coverage'
+      targetPath: '$(testResults)'
