@@ -38,7 +38,7 @@ def generate_unique_coverage_name() -> str:
         output_file_name = Path(output_file_name_template.format(i))
         i += 1
 
-        if not output_file_name.exists:
+        if not output_file_name.exists():
             return output_file_name.name
 
 
