@@ -19,7 +19,8 @@ jobs:
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
     toolsLocation: '$(Build.SourcesDirectory)\tools'
-    coverageFiles: '$(testResults)\*.xml'
+    coverageOutputLocation: '$(Build.SourcesDirectory)\coverageReports'
+    coverageFiles: '$(coverageOutputLocation)\*.xml'
 
   steps:
   - script: |
@@ -114,18 +115,24 @@ jobs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
 
+  - task: CmdLine@2
+    displayName: Coverage - Create .coverage output directory.
+    inputs:
+      script: 'mkdir $(coverageOutputLocation)'
+
   - task: PythonScript@0
     displayName: Coverage - Convert .coverage files to .xml
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(toolsLocation)/convert_coverage.py'
-      workingDirectory: '$(testResults)'
+      arguments: '$(testResults)'
+      workingDirectory: '$(coverageOutputLocation)'
 
   - task: PublishPipelineArtifact@0
     displayName: Coverage - Publish .xml files
     inputs:
       artifactName: 'convertedCoverage'
-      targetPath: '$(testResults)'
+      targetPath: '$(coverageOutputLocation)'
 
   - task: SonarCloudAnalyze@1
     displayName: 'SonarCloud - Analyze'
