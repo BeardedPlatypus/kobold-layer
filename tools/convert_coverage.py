@@ -42,8 +42,7 @@ def generate_unique_coverage_name() -> str:
             return output_file_name.name
 
 
-def convert_coverage_to_xml(code_coverage_exe: Path,
-                            coverage_path: Path) -> None:
+def convert_coverage_to_xml(code_coverage_exe: Path, coverage_path: Path) -> None:
     """
     Convert the specified coverage_path to xml, and return the newly
     generated Path.
@@ -58,7 +57,7 @@ def convert_coverage_to_xml(code_coverage_exe: Path,
     """
     output_file_name = generate_unique_coverage_name()
 
-    coverage_convert_cmd = f'"{str(code_coverage_exe)}" analyze /output:{output_file_name} {coverage_path.name}'
+    coverage_convert_cmd = f'"{str(code_coverage_exe)}" analyze /output:{output_file_name} "{coverage_path.name}"'
     print(f"##[debug] coverage path:\n  {coverage_convert_cmd}")
 
     encoding = "utf-8"
