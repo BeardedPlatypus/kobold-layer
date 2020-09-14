@@ -71,7 +71,7 @@ def run() -> None:
 
     print("##[debug] Src coverage files:")
     for coverage_path in cwd_coverage_files:
-        print(f"##[Debug] {str(cov)}")
+        print(f"##[Debug] {str(coverage_path)}")
         convert_coverage_to_xml(coverage_exe, coverage_path)
 
 
