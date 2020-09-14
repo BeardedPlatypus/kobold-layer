@@ -29,26 +29,6 @@ def find_coverage_files(src_path: Path) -> Sequence:
     return Path(src_path).glob("**/*.coverage")
 
 
-def copy_coverage_files_to_cwd(coverage_files: Sequence) -> None:
-    """
-    Copy the Sequence of coverage files to the current working
-    directory as coverage_<n>.coverage.
-
-    Parameters:
-        coverage_files (Sequence): Sequence of Paths to copy to the working directory.
-    """
-    i = 0
-    new_coverage_name_template = "coverage_{}.coverage"
-
-    for cov_path in coverage_files:
-        new_name = new_coverage_name_template.format(i)
-        goal_path = Path(new_name)
-
-        shutil.move(str(cov_path), str(goal_path))
-
-        i += 1
-
-
 def convert_coverage_to_xml(code_coverage_exe: Path,
                             coverage_path: Path) -> None:
     """
@@ -81,44 +61,19 @@ def convert_coverage_to_xml(code_coverage_exe: Path,
     print(f"##[debug] {str(p.stderr)}\n")
 
 
-def run(coverage_dir: Path) -> None:
+def run() -> None:
     """
-    Convert the .coverage files within coverage_dir to .xml files.
-
-    Parameters:
-        coverage_dir (Path): the root directory in which to find the .coverage
-                             files.
+    Convert the .coverage files within the current working directory to .xml files.
     """
     coverage_exe = get_coverage_exe_path()
 
-    print("##[debug] " + str(coverage_exe))
-    print("##[debug] " + str(coverage_dir))
-    src_coverage_files = find_coverage_files(coverage_dir)
-
-    print("##[debug] Src coverage files:")
-    for cov in src_coverage_files:
-        print(f"##[Debug] {str(cov)}")
-
-    copy_coverage_files_to_cwd(src_coverage_files)
-
     cwd_coverage_files = find_coverage_files(".")
 
+    print("##[debug] Src coverage files:")
     for coverage_path in cwd_coverage_files:
         print(f"##[Debug] {str(cov)}")
         convert_coverage_to_xml(coverage_exe, coverage_path)
 
 
-def parse_arguments():
-    """
-    Parse the arguments provided to this script.
-    """
-    parser = argparse.ArgumentParser("Convert .coverage to .xml.")
-    parser.add_argument("coverage_folder", help="The folder containing the coverage files.")
-    return parser.parse_args()
-
-
 if __name__ == "__main__":
-    args = parse_arguments()
-
-    coverage_dir = Path(args.coverage_folder)
-    run(coverage_dir)
+    run()
