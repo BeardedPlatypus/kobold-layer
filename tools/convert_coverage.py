@@ -29,6 +29,19 @@ def find_coverage_files(src_path: Path) -> Sequence:
     return Path(src_path).glob("**/*.coverage")
 
 
+def generate_unique_coverage_name() -> str:
+    output_file_name_template = "coverage_{}.xml"
+
+    
+    i = 0
+    while i <= 255:
+        output_file_name = Path(output_file_name_template.format(i))
+        i += 1
+
+        if not output_file_name.exists:
+            return output_file_name.name
+
+
 def convert_coverage_to_xml(code_coverage_exe: Path,
                             coverage_path: Path) -> None:
     """
@@ -43,8 +56,9 @@ def convert_coverage_to_xml(code_coverage_exe: Path,
         If a coverage_path is provided other than the current working directory,
         the behaviour is undefined.
     """
-    output_file_path = coverage_path.with_suffix(".xml")
-    coverage_convert_cmd = f'"{str(code_coverage_exe)}" analyze /output:{output_file_path.name} {coverage_path.name}'
+    output_file_name = generate_unique_coverage_name()
+
+    coverage_convert_cmd = f'"{str(code_coverage_exe)}" analyze /output:{output_file_name} {coverage_path.name}'
     print(f"##[debug] coverage path:\n  {coverage_convert_cmd}")
 
     encoding = "utf-8"
