@@ -19,8 +19,8 @@ jobs:
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
     toolsLocation: '$(Build.SourcesDirectory)\tools'
-    coverageOutputLocation: '$(Build.SourcesDirectory)\coverageReports'
-    coverageFiles: '$(coverageOutputLocation)\*.xml'
+    coverageOutputLocation: '$(Build.SourcesDirectory)/coverageReports'
+    coverageFiles: '$(coverageOutputLocation)/*.xml'
 
   steps:
   - script: |
