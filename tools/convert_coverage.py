@@ -45,6 +45,7 @@ def copy_coverage_files_to_cwd(coverage_files: Sequence) -> None:
         goal_path = Path(new_name)
 
         shutil.move(str(cov_path), str(goal_path))
+        shutil.move(str(cov_path.with_suffix(".trx")), str(goal_path.with_suffix(".trx")))
 
         i += 1
 
