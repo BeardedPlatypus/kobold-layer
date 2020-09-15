@@ -26,6 +26,17 @@ steps:
   inputs:
     script: 'mkdir $(coverageOutputLocation)'
 
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'specific'
+    project: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8'
+    definition: '25'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    artifactName: 'coverage'
+    itemPattern: '**/*.coverage'
+    targetPath: '$(coverageDownloadLocation)'
+
 - task: PythonScript@0
   displayName: Coverage - Convert .coverage files to .xml
   inputs:
@@ -63,7 +74,9 @@ steps:
     projectName: 'kobold-layer'
     extraProperties: |
       sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+      sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
       sonar.cfamily.cache.enabled=false
+      sonar.cfamily.threads=1
 
 - task: PowerShell@2
   displayName: MSBuild
