@@ -40,6 +40,9 @@ jobs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
+      clean: true
+      createLogFile: true
+      logFileVerbosity: 'detailed'
 
   - task: CopyFiles@2
     displayName: 'Build - Copy DLLs'
