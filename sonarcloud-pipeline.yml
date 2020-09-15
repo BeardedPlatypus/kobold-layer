@@ -9,9 +9,9 @@ variables:
   buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
   coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
-  coverageOutputLocation: '$(Build.SourcesDirectory)\coverageReports'
+  coverageOutputLocation: '$(Build.SourcesDirectory)\DownloadedCoverage\TestResults'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
-  coverageFiles: '$(coverageOutputLocation)\**\*.xml'
+  coverageFiles: '$(coverageOutputLocation)\*.xml'
 
 steps:
 - task: UsePythonVersion@0
@@ -20,11 +20,6 @@ steps:
     versionSpec: '3.x'
     addToPath: true
     architecture: 'x64'
-
-- task: CmdLine@2
-  displayName: Coverage - Create .coverage output directory.
-  inputs:
-    script: 'mkdir $(coverageOutputLocation)'
 
 - task: DownloadPipelineArtifact@2
   inputs:
@@ -38,6 +33,11 @@ steps:
       **/*.coverage
       **/*.trx
     targetPath: '$(coverageDownloadLocation)'
+
+- task: CmdLine@2
+  displayName: Coverage - Create .coverage output directory.
+  inputs:
+    script: 'mkdir $(coverageOutputLocation)'
 
 - task: PythonScript@0
   displayName: Coverage - Convert .coverage files to .xml
