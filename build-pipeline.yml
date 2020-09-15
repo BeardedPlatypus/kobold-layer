@@ -87,7 +87,7 @@ jobs:
     displayName: 'Test - Generate .runsettings'
     inputs:
       scriptSource: 'filePath'
-      scriptPath: '$(Build.SourcesDirectory)/tools/location_runsettings.py'
+      scriptPath: '$(toolsLocation)/location_runsettings.py'
       arguments: '$(codeCoverageLocationRunsettings) $(testResults)'
 
   - task: VSTest@2
@@ -108,12 +108,6 @@ jobs:
         !**\x64\$(buildConfiguration)\zlib1.dll
       codeCoverageEnabled: true
       runSettingsFile: '$(codeCoverageLocationRunsettings)'
-
-  - task: PublishPipelineArtifact@0
-    displayName: 'Test - Publish .coverage files'
-    inputs:
-      artifactName: 'coverage'
-      targetPath: '$(testResults)'
 
   - task: CmdLine@2
     displayName: Coverage - Create .coverage output directory.
