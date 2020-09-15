@@ -8,7 +8,7 @@ variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
 
 jobs:
-- job: QualityVerification
+- job: Debug
 
   variables:
     buildPlatform: 'x64'
@@ -19,8 +19,6 @@ jobs:
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
     toolsLocation: '$(Build.SourcesDirectory)\tools'
-    coverageOutputLocation: '$(Build.SourcesDirectory)/coverageReports'
-    coverageFiles: '$(coverageOutputLocation)/*.xml'
 
   steps:
   - script: |
@@ -36,25 +34,15 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
 
-  - task: SonarCloudPrepare@1
-    displayName: 'SonarCloud - Prepare'
+  - task: VSBuild@1
+    displayName: 'Build - Executables'
     inputs:
-      SonarCloud: 'sonarcloud'
-      organization: 'beardedplatypus'
-      scannerMode: 'MSBuild'
-      projectKey: 'BeardedPlatypus_kobold-layer'
-      projectName: 'kobold-layer'
-      extraProperties: |
-        sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
-        sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
-        sonar.cfamily.cache.enabled=false
-        sonar.cfamily.threads=1
-
-  - task: PowerShell@2
-    displayName: MSBuild
-    inputs:
-      targetType: 'inline'
-      script: '& $(buildWrapperExe) --out-dir $(buildWrapperOutputDir) "$(msBuildExe)" $(solution) -nologo -p:Configuration=$(buildConfiguration) -p:Platform=$(buildPlatform)'
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      clean: true
+      createLogFile: true
+      logFileVerbosity: 'detailed'
 
   - task: CopyFiles@2
     displayName: 'Build - Copy DLLs'
@@ -109,29 +97,8 @@ jobs:
       codeCoverageEnabled: true
       runSettingsFile: '$(codeCoverageLocationRunsettings)'
 
-  - task: CmdLine@2
-    displayName: Coverage - Create .coverage output directory.
-    inputs:
-      script: 'mkdir $(coverageOutputLocation)'
-
-  - task: PythonScript@0
-    displayName: Coverage - Convert .coverage files to .xml
-    inputs:
-      scriptSource: 'filePath'
-      scriptPath: '$(toolsLocation)/convert_coverage.py'
-      arguments: '$(testResults)'
-      workingDirectory: '$(coverageOutputLocation)'
-
   - task: PublishPipelineArtifact@0
     displayName: Coverage - Publish .xml files
     inputs:
-      artifactName: 'convertedCoverage'
-      targetPath: '$(coverageOutputLocation)'
-
-  - task: SonarCloudAnalyze@1
-    displayName: 'SonarCloud - Analyze'
-
-  - task: SonarCloudPublish@1
-    displayName: 'SonarCloud - Publish'
-    inputs:
-      pollingTimeoutSec: '300'
+      artifactName: 'coverage'
+      targetPath: '$(testResults)'

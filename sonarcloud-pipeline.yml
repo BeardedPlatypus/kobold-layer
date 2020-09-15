@@ -9,48 +9,47 @@ variables:
   buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
   coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
-  coverageOutputLocation: '$(Build.SourcesDirectory)\TestResults'
+  coverageOutputLocation: '$(Build.SourcesDirectory)\coverageReports'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
-  coverageFiles: '$(coverageOutputLocation)\*.xml'
+  coverageFiles: '$(coverageOutputLocation)\**\*.xml'
 
 steps:
-#- task: UsePythonVersion@0
-#  displayName: Set up python version.
-#  inputs:
-#    versionSpec: '3.x'
-#    addToPath: true
-#    architecture: 'x64'
+- task: UsePythonVersion@0
+  displayName: Set up python version.
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+    architecture: 'x64'
 
-#- task: CmdLine@2
-#  displayName: Coverage - Create .coverage output directory.
-#  inputs:
-#    script: 'mkdir $(coverageOutputLocation)'
+- task: CmdLine@2
+  displayName: Coverage - Create .coverage output directory.
+  inputs:
+    script: 'mkdir $(coverageOutputLocation)'
 
-#- task: DownloadPipelineArtifact@2
-#  displayName: Coverage - Download .coverage artifacts
-#  inputs:
-#    buildType: 'specific'
-#    project: '41987b1d-47e2-4fea-90ac-c2b42d11a558'
-#    definition: '1'
-#    specificBuildWithTriggering: true
-#    buildVersionToDownload: 'latest'
-#    artifactName: 'coverage'
-#    itemPattern: '**/*.coverage'
-#    targetPath: '$(coverageDownloadLocation)'
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'specific'
+    project: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8'
+    definition: '25'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    artifactName: 'coverage'
+    itemPattern: '**/*.coverage'
+    targetPath: '$(coverageDownloadLocation)'
 
-#- task: PythonScript@0
-#  displayName: Coverage - Convert .coverage files to .xml
-#  inputs:
-#    scriptSource: 'filePath'
-#    scriptPath: '$(toolsLocation)/convert_coverage.py'
-#    arguments: '$(coverageDownloadLocation)'
-#    workingDirectory: '$(coverageOutputLocation)'
+- task: PythonScript@0
+  displayName: Coverage - Convert .coverage files to .xml
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: '$(toolsLocation)/convert_coverage.py'
+    arguments: '$(coverageDownloadLocation)'
+    workingDirectory: '$(coverageOutputLocation)'
 
-#- task: PublishPipelineArtifact@0
-#  displayName: Coverage - Publish .xml files
-#  inputs:
-#    artifactName: 'convertedCoverage'
-#    targetPath: '$(coverageOutputLocation)'
+- task: PublishPipelineArtifact@0
+  displayName: Coverage - Publish .xml files
+  inputs:
+    artifactName: 'convertedCoverage'
+    targetPath: '$(coverageOutputLocation)'
 
 - script: |
     vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
@@ -75,7 +74,9 @@ steps:
     projectName: 'kobold-layer'
     extraProperties: |
       sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+      sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
       sonar.cfamily.cache.enabled=false
+      sonar.cfamily.threads=1
 
 - task: PowerShell@2
   displayName: MSBuild
