@@ -34,7 +34,9 @@ steps:
     specificBuildWithTriggering: true
     buildVersionToDownload: 'latest'
     artifactName: 'coverage'
-    itemPattern: '**/*.coverage'
+    itemPattern: |
+      **/*.coverage
+      **/*.trx
     targetPath: '$(coverageDownloadLocation)'
 
 - task: PythonScript@0
