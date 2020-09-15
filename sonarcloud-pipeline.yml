@@ -11,7 +11,7 @@ variables:
   coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
   coverageOutputLocation: '$(Build.SourcesDirectory)\coverageReports'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
-  coverageFiles: '$(coverageOutputLocation)\*.xml'
+  coverageFiles: '$(coverageOutputLocation)\**\*.xml'
 
 steps:
 - task: UsePythonVersion@0
