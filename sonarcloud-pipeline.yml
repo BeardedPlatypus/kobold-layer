@@ -60,6 +60,7 @@ steps:
     projectName: 'kobold-layer'
     extraProperties: |
       sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+      sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
       sonar.cfamily.cache.enabled=false
       sonar.cfamily.threads=1
 
