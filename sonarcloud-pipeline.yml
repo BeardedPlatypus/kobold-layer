@@ -10,6 +10,7 @@ variables:
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
   coverageDownloadLocation: '$(Common.TestResultsDirectory)'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
+  coverageOutputLocation: '$(Build.SourcesDirectory)\TestResults'
   coverageFiles: '$(coverageOutputLocation)\*.xml'
 
 steps:
@@ -36,6 +37,19 @@ steps:
   inputs:
     artifactName: 'usedCoverage'
     targetPath: '$(coverageDownloadLocation)'
+
+- task: CmdLine@2
+  displayName: Coverage - Create .coverage output directory.
+  inputs:
+    script: 'mkdir $(coverageOutputLocation)'
+
+- task: PythonScript@0
+  displayName: Coverage - Convert .coverage files to .xml
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: '$(toolsLocation)/convert_coverage.py'
+    arguments: '$(coverageDownloadLocation)'
+    workingDirectory: '$(coverageOutputLocation)'
 
 - script: |
     vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
