@@ -8,8 +8,7 @@ variables:
   buildWrapperExe: '$(Build.SourcesDirectory)\tools\build-wrapper-win-x86-64.exe'
   buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
   msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
-  coverageDownloadLocation: '$(Build.SourcesDirectory)\DownloadedCoverage'
-  coverageOutputLocation: '$(Common.TestResultsDirectory)'
+  coverageDownloadLocation: '$(Common.TestResultsDirectory)'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
   coverageFiles: '$(coverageOutputLocation)\*.xml'
 
@@ -29,24 +28,14 @@ steps:
     specificBuildWithTriggering: true
     buildVersionToDownload: 'latest'
     artifactName: 'coverage'
-    itemPattern: |
-      **/*.coverage
-      **/*.trx
+    itemPattern: '**/*'
     targetPath: '$(coverageDownloadLocation)'
-
-- task: PythonScript@0
-  displayName: Coverage - Convert .coverage files to .xml
-  inputs:
-    scriptSource: 'filePath'
-    scriptPath: '$(toolsLocation)/convert_coverage.py'
-    arguments: '$(coverageDownloadLocation)'
-    workingDirectory: '$(coverageOutputLocation)'
 
 - task: PublishPipelineArtifact@0
   displayName: Coverage - Publish .xml files
   inputs:
-    artifactName: 'convertedCoverage'
-    targetPath: '$(coverageOutputLocation)'
+    artifactName: 'usedCoverage'
+    targetPath: '$(coverageDownloadLocation)'
 
 - script: |
     vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
@@ -71,7 +60,6 @@ steps:
     projectName: 'kobold-layer'
     extraProperties: |
       sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
-      sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
       sonar.cfamily.cache.enabled=false
       sonar.cfamily.threads=1
 
