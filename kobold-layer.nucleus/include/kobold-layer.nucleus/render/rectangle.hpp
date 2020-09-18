@@ -17,9 +17,9 @@ namespace kobold_layer::nucleus::render
         /// <param name="width">The width of the new rectangle.</param>
         /// <param name="height">The height of the new rectangle.</param>
         rectangle(const int x,
-            const int y,
-            const int width,
-            const int height) : x(x), y(y), width(width), height(height)
+            int const y,
+            int const width,
+            int const height) : x(x), y(y), width(width), height(height)
         {
         }
 

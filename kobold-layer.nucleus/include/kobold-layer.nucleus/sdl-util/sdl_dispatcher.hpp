@@ -67,7 +67,7 @@ namespace kobold_layer::nucleus::sdl_util
         /// SDL2 window.
         /// </returns>
         [[nodiscard]] virtual std::unique_ptr<resource_wrapper<SDL_Window>> create_window(
-            const std::string& title,
+            std::string const& title,
             int x, int y,
             int width, int height,
             unsigned int flags) const = 0;
@@ -80,7 +80,7 @@ namespace kobold_layer::nucleus::sdl_util
         /// A <see cref="resource_wrapper{SDL_Window}"/> containing the newly created
         /// SDL2 window.
         /// </returns>
-        virtual std::unique_ptr<resource_wrapper<SDL_Window>> create_window(const void* p_native_window) const = 0;
+        virtual std::unique_ptr<resource_wrapper<SDL_Window>> create_window(void const* p_native_window) const = 0;
 
         /// <summary>
         /// Creates a new SDL2 renderer.
@@ -116,10 +116,10 @@ namespace kobold_layer::nucleus::sdl_util
         virtual void render_copy_ex(
             SDL_Renderer* p_renderer,
             SDL_Texture* p_texture,
-            const SDL_Rect* p_src_rect,
-            const SDL_Rect* p_dst_rect,
+            SDL_Rect const* p_src_rect,
+            SDL_Rect const* p_dst_rect,
             double angle,
-            const SDL_Point* p_center,
+            SDL_Point const* p_center,
             SDL_RendererFlip flip) const = 0;
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace kobold_layer::nucleus::sdl_util
         /// </returns>
         virtual std::unique_ptr<resource_wrapper<SDL_Texture>> load_texture(
             SDL_Renderer* p_renderer,
-            const std::string& file_path) const = 0;
+            std::string const& file_path) const = 0;
 
         /// <summary>
         /// Queries the texture data of the provided <paramref name="p_texture"/>.

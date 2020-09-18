@@ -21,13 +21,13 @@ namespace kobold_layer::nucleus::sdl_util
         void sdl_quit() const override;
 
         [[nodiscard]] std::unique_ptr<resource_wrapper<SDL_Window>> create_window(
-            const std::string& title,
+            std::string const& title,
             int x, int y,
             int width, int height,
             unsigned int flags) const override;
 
         std::unique_ptr<resource_wrapper<SDL_Window>> create_window(
-            const void* p_native_window) const override;
+            void const* p_native_window) const override;
 
         std::unique_ptr<resource_wrapper<SDL_Renderer>> create_renderer(
             SDL_Window* p_window,
@@ -37,10 +37,10 @@ namespace kobold_layer::nucleus::sdl_util
         void render_copy_ex(
             SDL_Renderer* p_renderer,
             SDL_Texture* p_texture,
-            const SDL_Rect* p_src_rect,
-            const SDL_Rect* p_dst_rect,
+            SDL_Rect const* p_src_rect,
+            SDL_Rect const* p_dst_rect,
             double angle,
-            const SDL_Point* p_center,
+            SDL_Point const* p_center,
             SDL_RendererFlip flip) const override;
 
         void render_present(SDL_Renderer* p_renderer) const override;
@@ -48,7 +48,7 @@ namespace kobold_layer::nucleus::sdl_util
 
         std::unique_ptr<resource_wrapper<SDL_Texture>> load_texture(
             SDL_Renderer* p_renderer,
-            const std::string& file_path) const override;
+            std::string const& file_path) const override;
 
         void query_texture(SDL_Texture* p_texture,
             unsigned int* format,

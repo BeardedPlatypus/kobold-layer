@@ -13,13 +13,13 @@ namespace kobold_layer::nucleus::sdl_util
     }
 
 
-    int sdl_dispatcher_implementation::init_sdl(const unsigned int flags) const
+    int sdl_dispatcher_implementation::init_sdl(unsigned int const flags) const
     {
         return SDL_Init(flags);
     }
 
 
-    int sdl_dispatcher_implementation::init_img(const int flags) const
+    int sdl_dispatcher_implementation::init_img(int const flags) const
     {
         return IMG_Init(flags);
     }
@@ -32,12 +32,12 @@ namespace kobold_layer::nucleus::sdl_util
 
 
     std::unique_ptr<resource_wrapper<SDL_Window>> sdl_dispatcher_implementation::create_window(
-        const std::string& title,
-        const int x, const int y,
-        const int width, const int height,
-        const unsigned int flags) const
+        std::string const& title,
+        int const x, int const y,
+        int const width, int const height,
+        unsigned int const flags) const
     {
-        const auto p_window = SDL_CreateWindow(
+        SDL_Window* const p_window = SDL_CreateWindow(
             title.c_str(),
             x, y,
             width, height,
@@ -48,7 +48,7 @@ namespace kobold_layer::nucleus::sdl_util
 
 
     std::unique_ptr<resource_wrapper<SDL_Window>> sdl_dispatcher_implementation::create_window(
-        const void* p_native_window) const
+        void const* p_native_window) const
     {
         auto* const p_window = SDL_CreateWindowFrom(p_native_window);
         return construct_resource(p_window);
@@ -57,8 +57,8 @@ namespace kobold_layer::nucleus::sdl_util
 
     std::unique_ptr<resource_wrapper<SDL_Renderer>> sdl_dispatcher_implementation::create_renderer(
         SDL_Window* p_window,
-        const int index,
-        const unsigned int flags) const
+        int const index,
+        unsigned int const flags) const
     {
         auto* const p_renderer = SDL_CreateRenderer(p_window, index, flags);
         return construct_resource(p_renderer);
@@ -68,11 +68,11 @@ namespace kobold_layer::nucleus::sdl_util
     void sdl_dispatcher_implementation::render_copy_ex(
         SDL_Renderer* p_renderer,
         SDL_Texture* p_texture,
-        const SDL_Rect* p_src_rect,
-        const SDL_Rect* p_dst_rect,
-        const double angle,
-        const SDL_Point* p_center,
-        const SDL_RendererFlip flip) const
+        SDL_Rect const* p_src_rect,
+        SDL_Rect const* p_dst_rect,
+        double const angle,
+        SDL_Point const* p_center,
+        SDL_RendererFlip const flip) const
     {
         SDL_RenderCopyEx(
             p_renderer,
@@ -99,9 +99,9 @@ namespace kobold_layer::nucleus::sdl_util
 
     std::unique_ptr<resource_wrapper<SDL_Texture>> sdl_dispatcher_implementation::load_texture(
         SDL_Renderer* p_renderer,
-        const std::string& file_path) const
+        std::string const& file_path) const
     {
-        const auto p_texture = IMG_LoadTexture(p_renderer, file_path.c_str());
+        SDL_Texture* const p_texture = IMG_LoadTexture(p_renderer, file_path.c_str());
         return construct_resource(p_texture);
     }
 
