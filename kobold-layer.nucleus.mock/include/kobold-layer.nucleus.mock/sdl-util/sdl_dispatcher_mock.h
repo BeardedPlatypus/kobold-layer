@@ -13,7 +13,7 @@ public:
     
     MOCK_METHOD(sdl_window_ptr,
         create_window,
-        (const std::string&, int, int, int, int, unsigned int),
+        (std::string const&, int, int, int, int, unsigned int),
         (const));
 
     MOCK_METHOD(sdl_window_ptr,
@@ -30,7 +30,7 @@ public:
 
     MOCK_METHOD(void,
         render_copy_ex,
-        (SDL_Renderer*, SDL_Texture*, const SDL_Rect*, const SDL_Rect*, double, const SDL_Point*,
+        (SDL_Renderer*, SDL_Texture*, SDL_Rect const*, const SDL_Rect*, double, SDL_Point const*,
             SDL_RendererFlip),
         (const));
 
@@ -42,7 +42,7 @@ public:
         SDL_Texture>>;
     MOCK_METHOD(sdl_texture_ptr,
         load_texture,
-        (SDL_Renderer*, const std::string&),
+        (SDL_Renderer*, std::string const&),
         (const));
 
     MOCK_METHOD(void,
