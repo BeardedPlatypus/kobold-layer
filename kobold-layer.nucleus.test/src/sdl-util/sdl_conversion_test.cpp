@@ -11,9 +11,10 @@ namespace kobold_layer::nucleus::sdl_util
     TEST(sdl_conversion_test, to_sdl_rect_expected_results)
     {
         // Setup
-        const auto rect = render::rectangle(1, 2, 3, 4);
+        render::rectangle const rect = render::rectangle(1, 2, 3, 4);
+    	
         // Call
-        const auto sdl_rect = to_sdl_rect(rect);
+        SDL_Rect const sdl_rect = to_sdl_rect(rect);
 
         // Assert
         ASSERT_THAT(sdl_rect.x, Eq(rect.x));
@@ -33,7 +34,7 @@ namespace kobold_layer::nucleus::sdl_util
         sdl_rect.h = 4;
 
         // Call
-        const auto rect = to_rectangle(&sdl_rect);
+        render::rectangle const rect = to_rectangle(&sdl_rect);
 
         // Assert
         ASSERT_THAT(rect.x, Eq(sdl_rect.x));

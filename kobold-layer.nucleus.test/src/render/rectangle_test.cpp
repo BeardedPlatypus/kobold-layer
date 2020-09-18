@@ -10,13 +10,13 @@ namespace kobold_layer::nucleus::render
     TEST(rectangle_test, constructor_expected_results)
     {
         // Setup
-        const int x = 1;
-        const int y = 2;
-        const int width = 3;
-        const int height = 4;
+        int const x = 1;
+        int const y = 2;
+        int const width = 3;
+        int const height = 4;
 
         // Call
-        const auto rect = rectangle(x, y, width, height);
+        rectangle const rect = rectangle(x, y, width, height);
 
         // Assert
         ASSERT_THAT(rect.x, Eq(x));

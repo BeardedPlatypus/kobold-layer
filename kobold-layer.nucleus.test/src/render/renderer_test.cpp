@@ -17,18 +17,18 @@ namespace kobold_layer::nucleus::render
     {
     public:
         render_copy_data(
-            const bool flip_horizontally,
-            const bool flip_vertically,
-            const SDL_RendererFlip expected_flip) :
+            bool const flip_horizontally,
+            bool const flip_vertically,
+            SDL_RendererFlip const expected_flip) :
             flip_horizontally(flip_horizontally),
             flip_vertically(flip_vertically),
             expected_flip(expected_flip)
         {
         }
 
-        const bool flip_horizontally;
-        const bool flip_vertically;
-        const SDL_RendererFlip expected_flip;
+        bool const flip_horizontally;
+        bool const flip_vertically;
+        SDL_RendererFlip const expected_flip;
     };
 
     class render_copy_test : public ::testing::TestWithParam<render_copy_data>
@@ -48,17 +48,17 @@ namespace kobold_layer::nucleus::render
     TEST_P(render_copy_test, render_copy_expected_results)
     {
         // Setup
-        const auto p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        SDL_Renderer* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        const auto p_sdl_texture = reinterpret_cast<SDL_Texture*>(48);
-        const rectangle src = rectangle(1, 2, 3, 4);
-        const rectangle target = rectangle(5, 6, 7, 8);
-        const float angle = 96.F;
+        SDL_Texture* const p_sdl_texture = reinterpret_cast<SDL_Texture*>(48);
+        rectangle const src = rectangle(1, 2, 3, 4);
+        rectangle const target = rectangle(5, 6, 7, 8);
+        float const angle = 96.F;
 
         const auto p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
 
@@ -80,7 +80,7 @@ namespace kobold_layer::nucleus::render
             GetParam().expected_flip))
             .Times(1);
 
-        const auto renderer = renderer_implementation(std::move(p_resource),
+        renderer_implementation const renderer = renderer_implementation(std::move(p_resource),
             p_dispatcher);
 
         // Call | Assert
@@ -97,18 +97,18 @@ namespace kobold_layer::nucleus::render
     TEST(renderer_test, render_clear_expected_results)
     {
         // Setup
-        const auto p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        SDL_Renderer* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        const auto p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
+        std::shared_ptr<sdl_dispatcher_mock> const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
         EXPECT_CALL(*(p_dispatcher.get()), render_clear(p_sdl_renderer))
             .Times(1);
 
-        const auto renderer = renderer_implementation(std::move(p_resource),
+        renderer_implementation const renderer = renderer_implementation(std::move(p_resource),
             p_dispatcher);
 
         // Call | Assert
@@ -119,19 +119,19 @@ namespace kobold_layer::nucleus::render
     TEST(renderer_test, render_present_expected_results)
     {
         // Setup
-        auto p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        SDL_Renderer* p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        const auto p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
+        std::shared_ptr<sdl_dispatcher_mock> const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
         EXPECT_CALL(*(p_dispatcher.get()), render_present(p_sdl_renderer))
             .Times(1);
 
-        const auto renderer = renderer_implementation(std::move(p_resource),
-                                                      p_dispatcher);
+        renderer_implementation const renderer = 
+            renderer_implementation(std::move(p_resource), p_dispatcher);
 
         // Call | Assert
         renderer.render_present();
