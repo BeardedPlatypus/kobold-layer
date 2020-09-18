@@ -1,5 +1,5 @@
 ﻿#include "kobold-layer.nucleus.mock/sdl-util/resource_wrapper_mock.hpp"
-#include "kobold-layer.nucleus.mock/sdl-util/sdl_dispatcher_mock.h"
+#include "kobold-layer.nucleus.mock/sdl-util/sdl_dispatcher_mock.hpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>

@@ -160,12 +160,14 @@
     <ClInclude Include="include\kobold-layer.nucleus\render\renderer.h" />
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\resource_wrapper.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\sdl_dispatcher.hpp" />
+    <ClInclude Include="include\kobold-layer.nucleus\texture\texture.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\render\renderer_implementation.hpp" />
     <ClInclude Include="src\sdl-util\resource_wrapper_implementation.hpp" />
     <ClInclude Include="src\sdl-util\sdl_conversion.hpp" />
     <ClInclude Include="src\sdl-util\sdl_destructor.hpp" />
     <ClInclude Include="src\sdl-util\sdl_dispatcher_implementation.hpp" />
+    <ClInclude Include="src\texture\texture_implementation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -178,6 +180,7 @@
     <ClCompile Include="src\sdl-util\resource_wrapper_implementation.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion.cpp" />
     <ClCompile Include="src\sdl-util\sdl_dispatcher_implementation.cpp" />
+    <ClCompile Include="src\texture\texture_implementation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

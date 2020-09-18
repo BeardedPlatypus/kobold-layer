@@ -48,6 +48,12 @@
     <ClInclude Include="src\sdl-util\sdl_conversion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus\texture\texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture\texture_implementation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -63,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sdl-util\sdl_conversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture\texture_implementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
