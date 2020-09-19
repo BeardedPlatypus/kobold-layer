@@ -54,6 +54,9 @@
     <ClInclude Include="src\texture\texture_implementation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\texture\texture_factory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

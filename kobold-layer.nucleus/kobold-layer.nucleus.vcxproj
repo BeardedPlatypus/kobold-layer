@@ -167,6 +167,7 @@
     <ClInclude Include="src\sdl-util\sdl_conversion.hpp" />
     <ClInclude Include="src\sdl-util\sdl_destructor.hpp" />
     <ClInclude Include="src\sdl-util\sdl_dispatcher_implementation.hpp" />
+    <ClInclude Include="src\texture\texture_factory.hpp" />
     <ClInclude Include="src\texture\texture_implementation.hpp" />
   </ItemGroup>
   <ItemGroup>
