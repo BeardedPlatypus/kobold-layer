@@ -171,6 +171,7 @@
     <ClInclude Include="src\texture\texture_factory_implementation.hpp" />
     <ClInclude Include="src\texture\texture_implementation.hpp" />
     <ClInclude Include="src\texture\texture_manager.hpp" />
+    <ClInclude Include="src\texture\texture_manager_implementation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -185,6 +186,7 @@
     <ClCompile Include="src\sdl-util\sdl_dispatcher_implementation.cpp" />
     <ClCompile Include="src\texture\texture_factory_implementation.cpp" />
     <ClCompile Include="src\texture\texture_implementation.cpp" />
+    <ClCompile Include="src\texture\texture_manager_implementation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
