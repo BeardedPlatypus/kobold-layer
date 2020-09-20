@@ -135,7 +135,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\src;$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -160,7 +160,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)kobold-layer.nucleus\src;$(SolutionDir)kobold-layer.nucleus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -181,6 +181,7 @@
     <ClInclude Include="include\kobold-layer.nucleus.mock\render\renderer_mock.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\resource_wrapper_mock.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\sdl_dispatcher_mock.hpp" />
+    <ClInclude Include="include\kobold-layer.nucleus.mock\texture\texture_factory_mock.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>

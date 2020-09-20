@@ -30,6 +30,9 @@
     <ClInclude Include="include\kobold-layer.nucleus.mock\render\renderer_mock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus.mock\texture\texture_factory_mock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
