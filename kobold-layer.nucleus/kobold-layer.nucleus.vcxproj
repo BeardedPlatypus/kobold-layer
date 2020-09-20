@@ -170,6 +170,7 @@
     <ClInclude Include="src\texture\texture_factory.hpp" />
     <ClInclude Include="src\texture\texture_factory_implementation.hpp" />
     <ClInclude Include="src\texture\texture_implementation.hpp" />
+    <ClInclude Include="src\texture\texture_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
