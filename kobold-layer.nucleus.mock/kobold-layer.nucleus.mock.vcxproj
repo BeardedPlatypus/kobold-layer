@@ -182,6 +182,7 @@
     <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\resource_wrapper_mock.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus.mock\sdl-util\sdl_dispatcher_mock.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus.mock\texture\texture_factory_mock.hpp" />
+    <ClInclude Include="include\kobold-layer.nucleus.mock\texture\texture_mock.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
