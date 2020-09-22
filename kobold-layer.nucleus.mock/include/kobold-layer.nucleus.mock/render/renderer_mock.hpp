@@ -1,5 +1,5 @@
 #pragma once
-#include "kobold-layer.nucleus/render/renderer.h"
+#include "kobold-layer.nucleus/render/renderer.hpp"
 #include <gmock/gmock.h>
 
 class renderer_mock final : public kobold_layer::nucleus::render::renderer

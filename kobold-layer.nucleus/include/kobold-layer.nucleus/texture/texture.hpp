@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "kobold-layer.nucleus/render/rectangle.hpp"
-#include "kobold-layer.nucleus/render/renderer.h"
+#include "kobold-layer.nucleus/render/renderer.hpp"
 
 namespace kobold_layer::nucleus::texture {
 	/// <summary>
