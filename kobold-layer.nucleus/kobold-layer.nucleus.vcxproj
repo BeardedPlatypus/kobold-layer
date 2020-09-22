@@ -161,6 +161,7 @@
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\resource_wrapper.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\sdl_dispatcher.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\texture\texture.hpp" />
+    <ClInclude Include="include\kobold-layer.nucleus\view.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\render\renderer_implementation.hpp" />
     <ClInclude Include="src\sdl-util\resource_wrapper_implementation.hpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="src\texture\texture_factory_implementation.cpp" />
     <ClCompile Include="src\texture\texture_implementation.cpp" />
     <ClCompile Include="src\texture\texture_manager_implementation.cpp" />
+    <ClCompile Include="src\view.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
