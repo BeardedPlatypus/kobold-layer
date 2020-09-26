@@ -103,8 +103,8 @@ jobs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
 
-- job: release
-  # dependsOn: debug
+- job: Release
+  dependsOn: Debug
 
   variables:
     buildPlatform: 'x64'
