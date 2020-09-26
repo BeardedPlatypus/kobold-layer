@@ -120,6 +120,8 @@ jobs:
 
   - task: NuGetToolInstaller@0
     displayName: 'Nuget - Install'
+    inputs:
+      versionSpec: '5.6'
 
   - task: NuGetCommand@2
     displayName: 'Nuget - Restore Packages'
