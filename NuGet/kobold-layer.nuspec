@@ -2,7 +2,6 @@
 <package >
   <metadata>
     <id>BeardedPlatypus.kobold-layer</id>
-    <version>0.1.0</version>
     <authors>Maarten Tegelaers</authors>
     <owners>Maarten Tegelaers</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
