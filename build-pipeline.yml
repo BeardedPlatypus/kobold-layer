@@ -104,7 +104,7 @@ jobs:
       targetPath: '$(testResults)'
 
 - job: release
-  dependsOn: debug
+  # dependsOn: debug
 
   variables:
     buildPlatform: 'x64'
@@ -113,6 +113,11 @@ jobs:
     nugspecFile: '$(nugetPackFolder)\kobold-layer.nuspec'
 
   steps:
+  - script: |
+      vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
+      vcpkg integrate install
+    displayName: vcpkg
+
   - task: NuGetToolInstaller@0
     displayName: 'Nuget - Install'
 
