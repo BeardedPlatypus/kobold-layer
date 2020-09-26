@@ -6,6 +6,7 @@ pool:
 
 variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
+  toolsLocation: '$(Build.SourcesDirectory)\tools'
 
 jobs:
 - job: Debug
@@ -18,7 +19,6 @@ jobs:
     buildWrapperExe: '$(Build.SourcesDirectory)\tools\build-wrapper-win-x86-64.exe'
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
-    toolsLocation: '$(Build.SourcesDirectory)\tools'
 
   steps:
   - script: |
@@ -102,3 +102,69 @@ jobs:
     inputs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
+
+- job: release
+  # dependsOn: debug
+
+  variables:
+    buildPlatform: 'x64'
+    buildConfiguration: 'Release'
+    nugetPackFolder: '$(Build.SourcesDirectory)\nuget_build_folder'
+    nuspecFile: '$(nugetPackFolder)\kobold-layer.nuspec'
+
+  steps:
+  - script: |
+      vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
+      vcpkg integrate install
+    displayName: vcpkg
+
+  - task: NuGetToolInstaller@0
+    displayName: 'Nuget - Install'
+    inputs:
+      versionSpec: '5.6'
+
+  - task: NuGetCommand@2
+    displayName: 'Nuget - Restore Packages'
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    displayName: 'Build - Executables'
+    inputs:
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      clean: true
+      createLogFile: true
+      logFileVerbosity: 'detailed'
+
+  - task: UsePythonVersion@0
+    displayName: 'NuGet - Set up Python'
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+      architecture: 'x64'
+
+  - task: PythonScript@0
+    displayName: 'NuGet - Generate convention-based folder'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(toolsLocation)/prepare_nuget_convention_folder.py'
+      arguments: '$(Build.SourcesDirectory) $(nugetPackFolder)'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet - Pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '$(nuspecFile)'
+      packDestination: '$(nugetPackFolder)'
+      versioningScheme: 'off'
+      buildProperties: 'version=0.1.0-alpha+$(Build.SourceVersion)'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet - Push'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(nugetPackFolder)/**/*.nupkg;!$(nugetPackFolder)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8/13c93e06-eede-4f15-b1e8-c0af38a26329'
