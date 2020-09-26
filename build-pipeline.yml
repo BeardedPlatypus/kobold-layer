@@ -110,7 +110,7 @@ jobs:
     buildPlatform: 'x64'
     buildConfiguration: 'Release'
     nugetPackFolder: '$(Build.SourcesDirectory)\nuget_build_folder'
-    nugspecFile: '$(nugetPackFolder)\kobold-layer.nuspec'
+    nuspecFile: '$(nugetPackFolder)\kobold-layer.nuspec'
 
   steps:
   - script: |
@@ -160,6 +160,6 @@ jobs:
     displayName: 'NuGet - Push'
     inputs:
       command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      packagesToPush: '$(nugetPackFolder)/**/*.nupkg;!$(nugetPackFolder)/**/*.symbols.nupkg'
       nuGetFeedType: 'internal'
       publishVstsFeed: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8/13c93e06-eede-4f15-b1e8-c0af38a26329'
