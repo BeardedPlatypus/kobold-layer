@@ -102,3 +102,63 @@ jobs:
     inputs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
+
+- job: release
+  dependsOn: debug
+
+  variables:
+    buildPlatform: 'x64'
+    buildConfiguration: 'Release'
+    nugetPackFolder: '$(Build.SourcesDirectory)\nuget_build_folder'
+    nugspecFile: '$(nugetPackFolder)\kobold-layer.nuspec'
+
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: 'Nuget - Install'
+
+  - task: NuGetCommand@2
+    displayName: 'Nuget - Restore Packages'
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    displayName: 'Build - Executables'
+    inputs:
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      clean: true
+      createLogFile: true
+      logFileVerbosity: 'detailed'
+
+  - task: UsePythonVersion@0
+    displayName: 'NuGet - Set up Python'
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+      architecture: 'x64'
+
+  - task: PythonScript@0
+    displayName: 'NuGet - Generate convention-based folder'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(toolsLocation)/prepare_nuget_convention_folder.py'
+      arguments: '$(Build.SourcesDirectory) $(nugetPackFolder)'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet - Pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '$(nuspecFile)'
+      configuration: 
+      packDestination: '$(Build.ArtifactStagingDirectory)'
+      versioningScheme: 'off'
+      buildProperties: 'version=0.1.0-alpha+$(Build.SourceVersion)'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet - Push'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8/13c93e06-eede-4f15-b1e8-c0af38a26329'
