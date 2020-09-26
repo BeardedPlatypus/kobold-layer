@@ -150,15 +150,11 @@ jobs:
       scriptPath: '$(toolsLocation)/prepare_nuget_convention_folder.py'
       arguments: '$(Build.SourcesDirectory) $(nugetPackFolder)'
 
-  - task: NuGetCommand@2
+  - task: CmdLine@2
     displayName: 'NuGet - Pack'
     inputs:
-      command: 'pack'
-      packagesToPack: '$(nuspecFile)'
-      configuration: 
-      packDestination: '$(Build.ArtifactStagingDirectory)'
-      versioningScheme: 'off'
-      buildProperties: 'version=0.1.0-alpha+$(Build.SourceVersion)'
+      script: 'nuget.exe pack $(nuspecFile) -Version 0.1.0-alpha+$(Build.SourceVersion)'
+      workingDirectory: '$(nugetPackFolder)'
 
   - task: NuGetCommand@2
     displayName: 'NuGet - Push'
