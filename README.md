@@ -1,4 +1,4 @@
-<p align='center'><img align='center' src='https://raw.githubusercontent.com/BeardedPlatypus/kobold-layer/master/icon.svg' width='25%'></p>
+<p align='center'><img align='center' src='https://raw.githubusercontent.com/BeardedPlatypus/kobold-layer/master/readme/icon.svg' width='25%'></p>
 
 *This is a work-in-progress and will be updated further soon*
 
