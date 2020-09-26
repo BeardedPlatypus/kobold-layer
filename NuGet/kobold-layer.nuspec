@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>BeardedPlatypus.kobold-layer</id>
+    <version>0.1.0</version>
+    <authors>Maarten Tegelaers</authors>
+    <owners>Maarten Tegelaers</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/BeardedPlatypus/kobold-layer</projectUrl>
+    <icon>images/icon.png</icon>
+    <description>A small set of utilities build upon SDL2 and wrapped for consumption in .NET core 3.1 applications.</description>
+    <releaseNotes>Initial NuGet package release of the kobold-layer.</releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>kobold-layer</tags>
+  </metadata>
+</package>
