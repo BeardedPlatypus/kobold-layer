@@ -15,9 +15,9 @@ import shutil
 
 IMG_FOLDER_NAME = "images"
 
-RELATIVE_X64_NUGET_PATH = Path("runtimes") / "win10-x64"
-RELATIVE_LIB_PATH = RELATIVE_X64_NUGET_PATH / "lib" / "netcoreapp3.1"
-RELATIVE_NATIVE_PATH = RELATIVE_X64_NUGET_PATH / "native"
+RELATIVE_LIB_PATH =  Path("lib") / "netcoreapp3.1"
+RELATIVE_NATIVE_PATH = Path("native") / "x64"
+RELATIVE_BUILD_PATH = Path("build")
 
 
 def copy_nuget_data(repo_root: Path, nuget_target_folder: Path) -> None:
@@ -32,10 +32,14 @@ def copy_nuget_data(repo_root: Path, nuget_target_folder: Path) -> None:
     img_folder = nuget_target_folder / Path(IMG_FOLDER_NAME)
     img_folder.mkdir()
 
+    build_folder = nuget_target_folder / RELATIVE_BUILD_PATH
+    build_folder.mkdir(parents=True)
+
     nuget_data_folder = repo_root / "NuGet"
     
     shutil.copy(nuget_data_folder / "icon.png", img_folder)
     shutil.copy(nuget_data_folder / "kobold-layer.nuspec", nuget_target_folder)
+    shutil.copy(nuget_data_folder / "BeardedPlatypus.kobold-layer.targets", build_folder)
 
 
 def prepare_folder_structure(nuget_target_folder: Path) -> None:

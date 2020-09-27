@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
-  <metadata>
+  <metadata minClientVersion="2.5">
     <id>BeardedPlatypus.kobold-layer</id>
     <version>$version$</version>
     <authors>Maarten Tegelaers</authors>
@@ -13,5 +13,8 @@
     <releaseNotes>Initial NuGet package release of the kobold-layer.</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>kobold-layer</tags>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
   </metadata>
 </package>
