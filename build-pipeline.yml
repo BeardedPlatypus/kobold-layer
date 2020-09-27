@@ -159,7 +159,7 @@ jobs:
       packagesToPack: '$(nuspecFile)'
       packDestination: '$(nugetPackFolder)'
       versioningScheme: 'off'
-      buildProperties: 'version=0.1.0-alpha+$(Build.SourceVersion)'
+      buildProperties: 'version=0.1.0-dev.$(Build.BuildId)+$(Build.SourceVersion)'
 
   - task: NuGetCommand@2
     displayName: 'NuGet - Push'
