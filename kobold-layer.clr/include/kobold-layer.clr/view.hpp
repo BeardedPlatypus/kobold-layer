@@ -11,6 +11,8 @@ namespace kobold_layer::clr {
         void update();
         bool should_exit();
 
+		bool has_texture(std::string const& key);
+		void load_texture(std::string const& key, std::string const& texture_path);
     private:
         nucleus::view* p_view_;
     };

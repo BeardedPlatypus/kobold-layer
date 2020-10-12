@@ -28,4 +28,14 @@ namespace kobold_layer::clr {
 	{
 		return this->p_view_->should_quit();
 	}
+
+	bool view::has_texture(std::string const& key)
+	{
+		return this->p_view_->has_texture(key);
+	}
+
+	void view::load_texture(std::string const& key, std::string const& texture_path)
+	{
+		this->p_view_->load_texture(key, texture_path);
+	}
 }
