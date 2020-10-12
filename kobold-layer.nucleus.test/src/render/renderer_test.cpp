@@ -48,14 +48,14 @@ namespace kobold_layer::nucleus::render
     TEST_P(render_copy_test, render_copy_expected_results)
     {
         // Setup
-        SDL_Renderer* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        auto* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        SDL_Texture* const p_sdl_texture = reinterpret_cast<SDL_Texture*>(48);
+        auto* const p_sdl_texture = reinterpret_cast<SDL_Texture*>(48);
         rectangle const src = rectangle(1, 2, 3, 4);
         rectangle const target = rectangle(5, 6, 7, 8);
         float const angle = 96.F;
@@ -97,14 +97,14 @@ namespace kobold_layer::nucleus::render
     TEST(renderer_test, render_clear_expected_results)
     {
         // Setup
-        SDL_Renderer* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        auto* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        std::shared_ptr<sdl_dispatcher_mock> const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
+        auto const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
         EXPECT_CALL(*(p_dispatcher.get()), render_clear(p_sdl_renderer))
             .Times(1);
 
@@ -119,14 +119,14 @@ namespace kobold_layer::nucleus::render
     TEST(renderer_test, render_present_expected_results)
     {
         // Setup
-        SDL_Renderer* p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+        auto* const p_sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
         auto p_resource = std::make_shared<resource_wrapper_mock<SDL_Renderer>>();
         EXPECT_CALL(*(p_resource.get()), get_resource())
             .Times(1)
             .WillOnce(Return(p_sdl_renderer));
 
-        std::shared_ptr<sdl_dispatcher_mock> const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
+        auto const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
         EXPECT_CALL(*(p_dispatcher.get()), render_present(p_sdl_renderer))
             .Times(1);
 

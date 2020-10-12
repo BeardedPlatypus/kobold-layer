@@ -18,7 +18,7 @@ namespace kobold_layer::nucleus::texture {
 	TEST(texture_test, get_dimensions_returns_expected_results)
 	{
 		// Setup
-		SDL_Texture* const sdl_tex = reinterpret_cast<SDL_Texture*>(24);
+		auto* const sdl_tex = reinterpret_cast<SDL_Texture*>(24);
 
 		auto p_resource_wrapper = std::make_unique<resource_wrapper_mock<SDL_Texture>>();
 		EXPECT_CALL(*(p_resource_wrapper.get()), get_resource()).Times(1).WillOnce(Return(sdl_tex));
@@ -26,8 +26,8 @@ namespace kobold_layer::nucleus::texture {
 		int const expected_w = 10;
 		int const expected_h = 11;
 
-		std::shared_ptr<sdl_dispatcher_mock> const p_dispatcher = 
-			std::make_shared<sdl_dispatcher_mock>();
+		auto const p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
+		
 		EXPECT_CALL(*(p_dispatcher.get()), query_texture(sdl_tex, nullptr, nullptr, _, _))
 			.Times(1)
 			.WillOnce(DoAll(SetArgPointee<3>(expected_w),
@@ -49,10 +49,9 @@ namespace kobold_layer::nucleus::texture {
 	TEST(texture_test, render_calls_renderer_correctly)
 	{
 		// Setup
-		SDL_Texture* const sdl_tex = reinterpret_cast<SDL_Texture*>(24);
+		auto* const sdl_tex = reinterpret_cast<SDL_Texture*>(24);
 
-		std::unique_ptr<resource_wrapper_mock<SDL_Texture>> p_resource_wrapper = 
-			std::make_unique<resource_wrapper_mock<SDL_Texture>>();
+		auto p_resource_wrapper = std::make_unique<resource_wrapper_mock<SDL_Texture>>();
 		EXPECT_CALL(*(p_resource_wrapper.get()), get_resource()).Times(1).WillOnce(Return(sdl_tex));
 
 		const auto p_dispatcher = std::make_shared<sdl_dispatcher_mock>();
@@ -65,7 +64,7 @@ namespace kobold_layer::nucleus::texture {
 		bool const flip_vertically = false;
 		bool const flip_horizontally = true;
 
-		std::shared_ptr<renderer_mock> const p_renderer = std::make_shared<renderer_mock>();
+		auto const p_renderer = std::make_shared<renderer_mock>();
 		EXPECT_CALL(
 			*p_renderer.get(),
 			render_copy(sdl_tex, Ref(src), Ref(dst), angle, flip_horizontally, flip_vertically)).Times(1);

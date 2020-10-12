@@ -13,7 +13,7 @@ namespace kobold_layer::nucleus::texture {
 	TEST(texture_factory_test, construct_texture_expected_result)
 	{
 		// Setup
-		SDL_Renderer* const sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
+		auto* const sdl_renderer = reinterpret_cast<SDL_Renderer*>(24);
 
 		auto p_resource_renderer = std::make_unique<resource_wrapper_mock<SDL_Renderer>>();
 		EXPECT_CALL(*(p_resource_renderer.get()), get_resource())

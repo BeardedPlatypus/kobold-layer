@@ -80,7 +80,9 @@ namespace kobold_layer::nucleus {
         // Texture
         texture::texture const * const texture = p_tex_manager->get_texture("sample");
 
-        int width, height;
+        int width;
+    	int height;
+    	
         this->p_dispatcher_->get_window_size(this->p_window_->get_resource(), &width, &height);
         const auto window_rect = render::rectangle(0, 0, width, height);
 
