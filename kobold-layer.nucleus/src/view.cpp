@@ -60,13 +60,11 @@ namespace kobold_layer::nucleus {
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
-
-        // Load image.
-        this->p_tex_manager->load_texture("sample", std::filesystem::path("sample.png"));
     }
 
     void view::update()
     {
+    	// TODO: the eventing logic should be moved away from the view.
         SDL_Delay(10);
 
         SDL_Event sdl_event;
@@ -80,13 +78,13 @@ namespace kobold_layer::nucleus {
         this->p_renderer_->render_clear();
 
         // Texture
-        const auto texture = p_tex_manager->get_texture("sample");
+        texture::texture const * const texture = p_tex_manager->get_texture("sample");
 
         int width, height;
         this->p_dispatcher_->get_window_size(this->p_window_->get_resource(), &width, &height);
         const auto window_rect = render::rectangle(0, 0, width, height);
 
-        const render::rectangle tex_rect = texture->get_dimensions();
+        render::rectangle const tex_rect = texture->get_dimensions();
 
         texture->render(this->p_renderer_, tex_rect, window_rect, 0.F, false, false);
 
@@ -97,4 +95,14 @@ namespace kobold_layer::nucleus {
     {
         return this->should_quit_;
     }
+
+	bool view::has_texture(std::string const& key) const
+	{
+        return this->p_tex_manager->has_texture(key);
+	}
+
+	void view::load_texture(std::string const& key, std::filesystem::path const& texture_path)
+	{
+        this->p_tex_manager->load_texture(key, texture_path);
+	}
 }
