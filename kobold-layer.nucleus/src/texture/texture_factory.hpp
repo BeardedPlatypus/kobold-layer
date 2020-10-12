@@ -11,8 +11,8 @@ namespace kobold_layer::nucleus::texture
 	class texture_factory
 	{
 	public:
-		texture_factory(const texture_factory&) = delete;
-		texture_factory& operator=(const texture_factory&) = delete;
+		texture_factory(texture_factory const&) = delete;
+		texture_factory& operator=(texture_factory const&) = delete;
 
 		texture_factory(texture_factory&&) noexcept = delete;
 		texture_factory& operator=(texture_factory&&) noexcept = delete;
@@ -26,7 +26,7 @@ namespace kobold_layer::nucleus::texture
 		/// <returns>
 		/// A new <see cref="std::unique_ptr<{texture}"/>.
 		/// </returns>
-		[[nodiscard]] virtual std::unique_ptr<texture> construct_texture(const std::filesystem::path& texture_path) const = 0;
+		[[nodiscard]] virtual std::unique_ptr<texture> construct_texture(std::filesystem::path const& texture_path) const = 0;
 
 	protected:
 		texture_factory() = default;
