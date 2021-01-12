@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <memory>
+#include <string>
 #include <SDL2/SDL.h>
 #include "../src/sdl-util/sdl_dispatcher_implementation.hpp"
 
@@ -24,6 +25,24 @@ namespace kobold_layer::nucleus {
 		/// </summary>
 		/// <param name="p_native_window">The native window used to initialise the view.</param>
 		void initialise(void const* p_native_window);
+		
+		/// <summary>
+		/// Initialise a new frame to render.
+		/// </summary>
+		/// <remarks>
+		/// This call should be followed by a call to <see cref="finalise_frame"/>.
+		/// </remarks>
+		void initialise_frame();
+
+		void render_texture(const std::string& texture_label) const;
+		
+		/// <summary>
+		/// Finalise the frame currently being rendered.
+		/// </summary>
+		/// <remarks>
+		/// This call should be preceded by a call to <see cref="initialise_frame"/>.
+		/// </remarks>
+		void finalise_frame() const;
 
 		void update();
 	

@@ -4,9 +4,6 @@
 #include "render/renderer_implementation.hpp"
 #include "texture/texture_factory_implementation.hpp"
 
-#include <string>
-
-
 namespace kobold_layer::nucleus {
     void view::initialise()
     {
@@ -62,8 +59,8 @@ namespace kobold_layer::nucleus {
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
     }
 
-    void view::update()
-    {
+	void view::initialise_frame()
+	{
     	// TODO: the eventing logic should be moved away from the view.
         SDL_Delay(10);
 
@@ -76,9 +73,11 @@ namespace kobold_layer::nucleus {
         }
 
         this->p_renderer_->render_clear();
+	}
 
-        // Texture
-        texture::texture const * const texture = p_tex_manager->get_texture("sample");
+	void view::render_texture(const std::string& texture_label) const
+	{
+        texture::texture const * const texture = p_tex_manager->get_texture(texture_label);
 
         int width;
     	int height;
@@ -89,9 +88,19 @@ namespace kobold_layer::nucleus {
         render::rectangle const tex_rect = texture->get_dimensions();
 
         texture->render(this->p_renderer_, tex_rect, window_rect, 0.F, false, false);
+	}
 
+	void view::finalise_frame() const
+	{
         this->p_renderer_->render_present();
-    }
+	}
+
+	void view::update()
+	{
+        this->initialise_frame();
+        this->render_texture("sample");
+        this->finalise_frame();
+	}
 
     bool view::should_quit() const
     {

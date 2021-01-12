@@ -8,7 +8,13 @@ namespace kobold_layer::clr {
         ~view();
 
         void initialise(void* p_native_window);
+
         void update();
+
+		void initialise_frame();
+		void render_texture(System::String^ texture_label);
+		void finalise_frame();
+    	
         bool should_exit();
 
 		bool has_texture(System::String^ key);
