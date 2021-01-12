@@ -56,7 +56,7 @@ steps:
     vcpkg integrate install
   displayName: vcpkg
 
-- task: NuGetToolInstaller@0
+- task: NuGetToolInstaller@1
   displayName: 'Nuget - Install'
 
 - task: NuGetCommand@2
