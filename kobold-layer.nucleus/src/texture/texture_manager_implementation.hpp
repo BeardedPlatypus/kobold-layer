@@ -27,6 +27,8 @@ namespace kobold_layer::nucleus::texture
 
 		void load_texture(std::string const& key,
 			              std::filesystem::path const& texture_path) override;
+		
+		void unload_texture(std::string const& key) override;
 
 		[[nodiscard]] bool has_texture(std::string const& key) const override;
 		[[nodiscard]] const texture* get_texture(std::string const& key) const override;

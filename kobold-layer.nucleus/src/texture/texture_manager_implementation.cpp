@@ -17,6 +17,14 @@ namespace kobold_layer::nucleus::texture
 			this->p_texture_factory_->construct_texture(texture_path.string()));
 	}
 
+	void texture_manager_implementation::unload_texture(std::string const& key)
+	{
+		if (!this->has_texture(key)) return;
+		
+		this->texture_map_.erase(key);
+	}
+
+
 	bool texture_manager_implementation::has_texture(std::string const& key) const
 	{
 		return this->texture_map_.find(key) != this->texture_map_.end();

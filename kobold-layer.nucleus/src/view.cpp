@@ -116,4 +116,9 @@ namespace kobold_layer::nucleus {
 	{
         this->p_tex_manager->load_texture(key, texture_path);
 	}
+
+	void view::unload_texture(std::string const& key)
+    {
+        this->p_tex_manager->unload_texture(key);
+    }
 }

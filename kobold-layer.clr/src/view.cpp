@@ -60,4 +60,12 @@ namespace kobold_layer::clr {
 		
 		this->p_view_->load_texture(native_key, native_path);
 	}
+
+	void view::unload_texture(System::String^ key)
+	{
+		msclr::interop::marshal_context marshal_context;
+		std::string const native_key = marshal_context.marshal_as<const char*>(key);
+		
+		this->p_view_->unload_texture(native_key);
+	}
 }

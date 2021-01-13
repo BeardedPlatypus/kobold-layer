@@ -30,6 +30,9 @@ namespace kobold_layer::nucleus::texture
 			std::string const& key,
 			std::filesystem::path const& texture_path) = 0;
 
+		virtual void unload_texture(
+			std::string const& key) = 0;
+
 		/// <summary>
 		/// Determines whether <see cref="texture"/> is associated with the specified
 		/// <paramref name="key"/>.
