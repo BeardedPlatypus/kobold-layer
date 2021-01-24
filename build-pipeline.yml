@@ -17,11 +17,18 @@ jobs:
     buildConfiguration: 'Debug'
     codeCoverageLocationRunsettings: '$(Build.SourcesDirectory)\code_coverage_loc.runsettings'
     testResults: '$(Build.SourcesDirectory)\TestResults'
-    buildWrapperExe: '$(Build.SourcesDirectory)\tools\build-wrapper-win-x86-64.exe'
+    buildWrapperExe: '$(Build.SourcesDirectory)\.sonar\build-wrapper-win-x86-64.exe'
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
 
   steps:
+  - task: CondaEnvironment@0
+    displayName: 'Setup conda environment'
+    inputs:
+      environmentName: 'kobold-layer-build'
+      createOptions: 'requests'
+      cleanEnvironment: true
+
   - script: |
       vcpkg install sdl2:x64-windows sdl2-image:x64-windows gtest:x64-windows
       vcpkg integrate install
@@ -34,6 +41,12 @@ jobs:
     displayName: 'Nuget - Restore Packages'
     inputs:
       restoreSolution: '$(solution)'
+
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(Build.SourcesDirectory)\tools\download_sonar_tools.py'
+      workingDirectory: '$(Build.SourcesDirectory)'
     
   - task: SonarCloudPrepare@1
     displayName: 'SonarCloud - Prepare'
@@ -75,13 +88,6 @@ jobs:
     inputs:
       packageFeedSelector: 'nugetOrg'
       versionSelector: 'latestStable'
-
-  - task: UsePythonVersion@0
-    displayName: 'Test - Set up Python'
-    inputs:
-      versionSpec: '3.x'
-      addToPath: true
-      architecture: 'x64'
 
   - task: PythonScript@0
     displayName: 'Test - Generate .runsettings'
