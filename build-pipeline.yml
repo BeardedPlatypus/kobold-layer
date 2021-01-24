@@ -17,7 +17,7 @@ jobs:
     buildConfiguration: 'Debug'
     codeCoverageLocationRunsettings: '$(Build.SourcesDirectory)\code_coverage_loc.runsettings'
     testResults: '$(Build.SourcesDirectory)\TestResults'
-    buildWrapperExe: '$(Build.SourcesDirectory)\.sonar\build-wrapper-win-x86-64.exe'
+    buildWrapperExe: '$(Build.SourcesDirectory)\.sonar\build-wrapper-win-x86\build-wrapper-win-x86-64.exe'
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
 
