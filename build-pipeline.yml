@@ -7,7 +7,7 @@ pool:
 variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
-  version: '0.1.0-dev.$(Build.BuildId)+$(Build.SourceVersion)'
+  version: '0.1.0-dev.$(Build.BuildId)'
 
 jobs:
 - job: Debug
@@ -179,7 +179,7 @@ jobs:
       packagesToPack: '$(nuspecFile)'
       packDestination: '$(nugetPackFolder)'
       versioningScheme: 'off'
-      buildProperties: 'version=$(version)'
+      buildProperties: 'version=$(version)+$(Build.SourceVersion)'
 
   - task: NuGetCommand@2
     displayName: 'NuGet - Push'
