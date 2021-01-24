@@ -121,7 +121,7 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(toolsLocation)/convert_coverage.py'
-      arguments: '$(testResults)'
+      arguments: '.'
       workingDirectory: '$(testResults)'
 
   - task: PublishPipelineArtifact@0
