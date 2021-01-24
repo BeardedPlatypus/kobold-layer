@@ -20,7 +20,6 @@ jobs:
     buildWrapperExe: '$(Build.SourcesDirectory)\.sonar\build-wrapper-win-x86\build-wrapper-win-x86-64.exe'
     buildWrapperOutputDir: '$(Build.SourcesDirectory)\build_wrapper_output_directory'
     msBuildExe: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
-    coverageFiles: '$(testResults)\*.xml'
 
   steps:
   - task: CondaEnvironment@0
@@ -60,7 +59,6 @@ jobs:
       projectVersion: '$(version)'
       extraProperties: |
         sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
-        sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
         sonar.cfamily.cache.enabled=false
         sonar.cfamily.threads=1
 
@@ -115,14 +113,6 @@ jobs:
         !**\x64\$(buildConfiguration)\zlib1.dll
       codeCoverageEnabled: true
       runSettingsFile: '$(codeCoverageLocationRunsettings)'
-
-  - task: PythonScript@0
-    displayName: Coverage - Convert .coverage files to .xml
-    inputs:
-      scriptSource: 'filePath'
-      scriptPath: '$(toolsLocation)/convert_coverage.py'
-      arguments: '.'
-      workingDirectory: '$(testResults)'
 
   - task: PublishPipelineArtifact@0
     displayName: Coverage - Publish .xml files
