@@ -7,6 +7,7 @@ pool:
 variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
+  version: '0.1.0-dev.$(Build.BuildId)+$(Build.SourceVersion)'
 
 jobs:
 - job: Debug
@@ -33,16 +34,27 @@ jobs:
     displayName: 'Nuget - Restore Packages'
     inputs:
       restoreSolution: '$(solution)'
-
-  - task: VSBuild@1
-    displayName: 'Build - Executables'
+    
+  - task: SonarCloudPrepare@1
+    displayName: 'SonarCloud - Prepare'
     inputs:
-      solution: '$(solution)'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-      clean: true
-      createLogFile: true
-      logFileVerbosity: 'detailed'
+      SonarCloud: 'sonarcloud'
+      organization: 'beardedplatypus'
+      scannerMode: 'MSBuild'
+      projectKey: 'BeardedPlatypus_kobold-layer'
+      projectName: 'kobold-layer'
+      projectVersion: '$(version)'
+      extraProperties: |
+        sonar.cfamily.build-wrapper-output=$(buildWrapperOutputDir)
+        sonar.cfamily.vscoveragexml.reportsPath=$(coverageFiles)
+        sonar.cfamily.cache.enabled=false
+        sonar.cfamily.threads=1
+
+  - task: PowerShell@2
+    displayName: MSBuild
+    inputs:
+      targetType: 'inline'
+      script: '& $(buildWrapperExe) --out-dir $(buildWrapperOutputDir) "$(msBuildExe)" $(solution) -nologo -p:Configuration=$(buildConfiguration) -p:Platform=$(buildPlatform)'
 
   - task: CopyFiles@2
     displayName: 'Build - Copy DLLs'
@@ -103,6 +115,14 @@ jobs:
       artifactName: 'coverage'
       targetPath: '$(testResults)'
 
+  - task: SonarCloudAnalyze@1
+    displayName: 'SonarCloud - Analyze'
+
+  - task: SonarCloudPublish@1
+    displayName: 'SonarCloud - Publish'
+    inputs:
+      pollingTimeoutSec: '300'
+
 - job: Release
   dependsOn: Debug
 
@@ -159,7 +179,7 @@ jobs:
       packagesToPack: '$(nuspecFile)'
       packDestination: '$(nugetPackFolder)'
       versioningScheme: 'off'
-      buildProperties: 'version=0.1.0-dev.$(Build.BuildId)+$(Build.SourceVersion)'
+      buildProperties: 'version=$(version)'
 
   - task: NuGetCommand@2
     displayName: 'NuGet - Push'
