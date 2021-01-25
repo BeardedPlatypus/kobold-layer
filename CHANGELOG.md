@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2021-01-24
+## [0.1.0] - 2021-01-25
 ### Added
 
 - Initial static C++ library allowing for displaying textures on a window through SDL2
