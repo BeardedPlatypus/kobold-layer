@@ -26,13 +26,13 @@ namespace kobold_layer::nucleus::texture
 			std::shared_ptr<sdl_util::sdl_dispatcher> p_dispatcher);
 
 		void render(std::shared_ptr<render::renderer> p_renderer,
-			render::rectangle const& clip,
-			render::rectangle const& dst,
-			float angle,
-			bool flip_horizontally,
-			bool flip_vertically) const override;
+			        render::rectangle<int> const& clip,
+			        render::rectangle<int> const& dst,
+			        float angle,
+			        bool flip_horizontally,
+			        bool flip_vertically) const override;
 
-		[[nodiscard]] render::rectangle get_dimensions() const override;
+		[[nodiscard]] render::rectangle<int> get_dimensions() const override;
 
 	private:
 		std::unique_ptr<sdl_util::resource_wrapper<SDL_Texture>> p_texture_;

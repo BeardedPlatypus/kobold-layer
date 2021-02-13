@@ -14,8 +14,8 @@ namespace kobold_layer::nucleus::texture
 
 	void texture_implementation::render(
 		std::shared_ptr<render::renderer> const p_renderer,
-		render::rectangle const& clip,
-		render::rectangle const& dst,
+		render::rectangle<int> const& clip,
+		render::rectangle<int> const& dst,
 		float const angle,
 		bool const flip_horizontally,
 		bool const flip_vertically) const
@@ -30,7 +30,7 @@ namespace kobold_layer::nucleus::texture
 	}
 
 
-	render::rectangle texture_implementation::get_dimensions() const
+	render::rectangle<int> texture_implementation::get_dimensions() const
 	{
 		int width;
 		int height;

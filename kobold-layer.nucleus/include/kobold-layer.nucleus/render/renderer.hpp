@@ -34,8 +34,8 @@ namespace kobold_layer::nucleus::render
         /// <param name="flip_vertically">if set to <c>true</c> flip the rendered content vertically.</param>
         virtual void render_copy(
             SDL_Texture* p_texture,
-            rectangle const& texture_clip,
-            rectangle const& destination,
+            rectangle<int> const& texture_clip,
+            rectangle<int> const& destination,
             float angle,
             bool flip_horizontally,
             bool flip_vertically) const = 0;

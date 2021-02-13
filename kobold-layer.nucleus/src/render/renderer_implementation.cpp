@@ -14,8 +14,8 @@ namespace kobold_layer::nucleus::render
 
     void renderer_implementation::render_copy(
         SDL_Texture* p_texture,
-        rectangle const& texture_clip,
-        rectangle const& destination,
+        rectangle<int> const& texture_clip,
+        rectangle<int> const& destination,
         float const angle,
         bool const flip_horizontally,
         bool const flip_vertically) const

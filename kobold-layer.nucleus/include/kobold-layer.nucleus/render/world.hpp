@@ -25,14 +25,17 @@ namespace kobold_layer::nucleus::render
 		/// <returns>
 		/// A <see cref="rectangle"/> defining the boundaries of this world.
 		/// </returns>
-		[[nodiscard]] virtual rectangle get_boundaries() const = 0;
+		[[nodiscard]] virtual rectangle<float> get_boundaries() const = 0;
 		
 		/// <summary>
 		/// Sets boundaries of this <see cref="world"/> to the specified
 		/// <paramref name="new_boundaries"/>.
 		/// </summary>
 		/// <param name="new_boundaries">The new boundaries.</param>
-		virtual void set_boundaries(rectangle const& new_boundaries) = 0;
+		virtual void set_boundaries(rectangle<float> const& new_boundaries) = 0;
+
+	protected:
+		world() = default;
 	};
 	
 }

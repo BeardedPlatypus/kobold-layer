@@ -10,9 +10,9 @@ public:
         void,
         render,
         (std::shared_ptr<kobold_layer::nucleus::render::renderer>,
-         kobold_layer::nucleus::render::rectangle const&,
-         kobold_layer::nucleus::render::rectangle const&,
+         kobold_layer::nucleus::render::rectangle<int> const&,
+         kobold_layer::nucleus::render::rectangle<int> const&,
          float, bool, bool),
         (const));
-    MOCK_METHOD(kobold_layer::nucleus::render::rectangle, get_dimensions, (), (const));
+    MOCK_METHOD(kobold_layer::nucleus::render::rectangle<int>, get_dimensions, (), (const));
 };

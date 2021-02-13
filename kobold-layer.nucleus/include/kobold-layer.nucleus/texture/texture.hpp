@@ -30,8 +30,8 @@ namespace kobold_layer::nucleus::texture {
 		/// <param name="flip_horizontally">if set to <c>true</c> [flip horizontally].</param>
 		/// <param name="flip_vertically">if set to <c>true</c> [flip vertically].</param>
 		virtual void render(std::shared_ptr<render::renderer> p_renderer,
-			render::rectangle const& clip,
-			render::rectangle const& dst,
+			render::rectangle<int> const& clip,
+			render::rectangle<int> const& dst,
 			float angle,
 			bool flip_horizontally,
 			bool flip_vertically) const = 0;
@@ -42,7 +42,7 @@ namespace kobold_layer::nucleus::texture {
 		/// <returns>
 		/// The dimensions of this texture.
 		/// </returns>
-		[[nodiscard]] virtual render::rectangle get_dimensions() const = 0;
+		[[nodiscard]] virtual render::rectangle<int> get_dimensions() const = 0;
 	protected:
 		texture() = default;
 	};

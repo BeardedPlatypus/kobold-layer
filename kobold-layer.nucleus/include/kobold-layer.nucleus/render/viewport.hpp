@@ -58,13 +58,13 @@ namespace kobold_layer::nucleus::render
 	    /// <returns>
 	    /// The world coordinates of this <see cref="viewport"/>.
 	    /// </returns>
-		[[nodiscard]] virtual rectangle get_viewport_coordinates() const = 0;
+		[[nodiscard]] virtual rectangle<float> get_viewport_coordinates() const = 0;
 
 	    /// <summary>
 	    /// Set the world coordinates of this <see cref="viewport"/> to the
 	    /// specified <paramref name="new_coordinates"/>.
 	    /// </summary>
 	    /// <param name="new_coordinates">The new coordinates.</param>
-		virtual void set_viewport_coordinates(rectangle const& new_coordinates) = 0;
+		virtual void set_viewport_coordinates(rectangle<float> const& new_coordinates) = 0;
 	};
 }
