@@ -158,6 +158,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\kobold-layer.nucleus\render\rectangle.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\render\renderer.hpp" />
+    <ClInclude Include="include\kobold-layer.nucleus\render\world.h" />
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\resource_wrapper.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\sdl-util\sdl_dispatcher.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\texture\texture.hpp" />

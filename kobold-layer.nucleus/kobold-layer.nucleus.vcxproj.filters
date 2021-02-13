@@ -69,6 +69,9 @@
     <ClInclude Include="include\kobold-layer.nucleus\view.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus\render\world.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
