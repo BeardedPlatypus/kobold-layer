@@ -49,7 +49,7 @@ namespace kobold_layer::nucleus::render
 	    /// <paramref name="new_render_height"/>.
 	    /// </summary>
 	    /// <param name="new_render_height">The new render height.</param>
-		virtual void set_render_height(int new_render_height) = 0;
+		virtual void set_render_height(unsigned int new_render_height) = 0;
 
 		
 	    /// <summary>
@@ -66,5 +66,8 @@ namespace kobold_layer::nucleus::render
 	    /// </summary>
 	    /// <param name="new_coordinates">The new coordinates.</param>
 		virtual void set_viewport_coordinates(rectangle<float> const& new_coordinates) = 0;
+
+	protected:
+		viewport() = default;
 	};
 }
