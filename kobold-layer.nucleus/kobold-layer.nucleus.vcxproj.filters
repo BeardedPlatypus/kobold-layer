@@ -69,7 +69,10 @@
     <ClInclude Include="include\kobold-layer.nucleus\view.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kobold-layer.nucleus\render\world.h">
+    <ClInclude Include="include\kobold-layer.nucleus\render\viewport.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus\render\world.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -99,9 +102,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\view.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\kobold-layer.nucleus\render\viewport.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
