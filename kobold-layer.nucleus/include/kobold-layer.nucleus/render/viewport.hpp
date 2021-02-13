@@ -19,7 +19,7 @@ namespace kobold_layer::nucleus::render
 		viewport(viewport&&) noexcept = delete;
 		viewport& operator=(viewport&&) noexcept = delete;
 
-		virtual ~viewport() = delete;
+		virtual ~viewport() = default;
 		
 	    /// <summary>
 	    /// Get the render width of this <see cref="viewport"/>.
