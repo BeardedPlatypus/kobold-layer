@@ -175,6 +175,7 @@
     <ClInclude Include="src\texture\texture_manager_implementation.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\kobold-layer.nucleus\render\viewport.hpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

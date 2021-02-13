@@ -98,5 +98,8 @@
     <ClCompile Include="src\view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\kobold-layer.nucleus\render\viewport.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
