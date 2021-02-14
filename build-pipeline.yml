@@ -7,7 +7,7 @@ pool:
 variables:
   solution: '$(Build.SourcesDirectory)/kobold-layer.sln'
   toolsLocation: '$(Build.SourcesDirectory)\tools'
-  version: '0.1.0-dev.$(Build.BuildId)'
+  version: '0.2.0-dev.$(Build.BuildId)'
 
 jobs:
 - job: Debug
