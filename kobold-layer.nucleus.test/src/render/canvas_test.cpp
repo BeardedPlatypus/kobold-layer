@@ -10,7 +10,6 @@ using ::testing::StrictMock;
 using ::testing::Return;
 using ::testing::_;
 using ::testing::AllOf;
-using ::testing::Pointee;
 using ::testing::Field;
 
 namespace kobold_layer::nucleus::render
