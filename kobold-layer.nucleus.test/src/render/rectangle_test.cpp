@@ -28,10 +28,10 @@ namespace kobold_layer::nucleus::render
     TEST(rectangle_test, constructor_float_expected_results)
     {
         // Setup
-        float const x = 1.2;
-        float const y = 2.3;
-        float const width = 3.4;
-        float const height = 4.5;
+        float const x = 1.2f;
+        float const y = 2.3f;
+        float const width = 3.4f;
+        float const height = 4.5f;
 
         // Call
         rectangle const rect = rectangle(x, y, width, height);
