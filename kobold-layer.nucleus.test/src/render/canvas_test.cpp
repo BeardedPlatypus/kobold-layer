@@ -50,7 +50,7 @@ namespace kobold_layer::nucleus::render
 		EXPECT_CALL(*(p_renderer.get()), render_copy(_, _, _, _, _, _)).Times(0);
 		
 		rectangle<int> source_rect = { 1, 2, 3, 4 };
-		rectangle<float> world_rect = { 1.0, 2.0, 3.0, 4.0 };
+		rectangle<float> world_rect = { 1.0F, 2.0F, 3.0F, 4.0F };
 
 		auto p_viewport = std::make_unique<viewport_mock>();
 		EXPECT_CALL(*(p_viewport.get()), 
@@ -77,7 +77,7 @@ namespace kobold_layer::nucleus::render
 		canvas.render_copy(p_sdl_texture, 
 			               source_rect, 
 			               world_rect, 
-			               1.0, 
+			               1.0F, 
 			               true, 
 			               true);
 	}
@@ -90,7 +90,7 @@ namespace kobold_layer::nucleus::render
 			{ 11, 21, 31, 41 }
 		};
 
-		const float angle = 21.3f;
+		const float angle = 21.3F;
 		const bool flip_horizontal = true;
 		const bool flip_vertical = true;
 		
@@ -113,7 +113,7 @@ namespace kobold_layer::nucleus::render
 		    .Times(1);
 		
 		rectangle<int> source_rect = { 1, 2, 3, 4 };
-		rectangle<float> world_rect = { 1.0, 2.0, 3.0, 4.0 };
+		rectangle<float> world_rect = { 1.0F, 2.0F, 3.0F, 4.0F };
 
 		auto p_viewport = std::make_unique<viewport_mock>();
 		EXPECT_CALL(*(p_viewport.get()), 
