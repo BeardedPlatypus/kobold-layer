@@ -168,6 +168,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\render\canvas_implementation.hpp" />
     <ClInclude Include="src\render\renderer_implementation.hpp" />
+    <ClInclude Include="src\render\world_implementation.hpp" />
     <ClInclude Include="src\sdl-util\resource_wrapper_implementation.hpp" />
     <ClInclude Include="src\sdl-util\sdl_conversion.hpp" />
     <ClInclude Include="src\sdl-util\sdl_destructor.hpp" />
@@ -187,6 +188,7 @@
     </ClCompile>
     <ClCompile Include="src\render\canvas_implementation.cpp" />
     <ClCompile Include="src\render\renderer_implementation.cpp" />
+    <ClCompile Include="src\render\world_implementation.cpp" />
     <ClCompile Include="src\sdl-util\resource_wrapper_implementation.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion.cpp" />
     <ClCompile Include="src\sdl-util\sdl_dispatcher_implementation.cpp" />

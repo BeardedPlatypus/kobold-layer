@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-#include "kobold-layer.nucleus/render/rectangle.hpp"
+#include "kobold-layer.nucleus/render/world.hpp"
+
+#include <memory>
 
 namespace kobold_layer::nucleus::render
 {	
@@ -8,16 +10,10 @@ namespace kobold_layer::nucleus::render
 	/// <see cref="world" /> defines the world boundaries in which textures
 	/// and sprites can be rendered.
 	/// </summary>
-	class world
+	class world_implementation final : public world
 	{
 	public:
-		world(const world&) = delete;
-		world& operator=(const world&) = delete;
-
-		world(world&&) noexcept = delete;
-		world& operator=(world&&) noexcept = delete;
-
-		virtual ~world() = default;
+		explicit world_implementation(rectangle<float> const& boundaries);
 
 		/// <summary>
 		/// Get the boundaries of this <see cref="world"/>
@@ -25,17 +21,16 @@ namespace kobold_layer::nucleus::render
 		/// <returns>
 		/// A <see cref="rectangle"/> defining the boundaries of this world.
 		/// </returns>
-		[[nodiscard]] virtual rectangle<float> get_boundaries() const = 0;
+		[[nodiscard]] rectangle<float> get_boundaries() const override;
 		
 		/// <summary>
 		/// Sets boundaries of this <see cref="world"/> to the specified
 		/// <paramref name="new_boundaries"/>.
 		/// </summary>
 		/// <param name="new_boundaries">The new boundaries.</param>
-		virtual void set_boundaries(rectangle<float> const& new_boundaries) = 0;
+		void set_boundaries(rectangle<float> const& new_boundaries) override;
 
-	protected:
-		world() = default;
+	private:
+		std::unique_ptr<rectangle<float>> p_boundaries_;
 	};
-	
 }
