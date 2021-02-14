@@ -166,6 +166,7 @@
     <ClInclude Include="include\kobold-layer.nucleus\texture\texture.hpp" />
     <ClInclude Include="include\kobold-layer.nucleus\view.hpp" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="src\render\canvas_implementation.hpp" />
     <ClInclude Include="src\render\renderer_implementation.hpp" />
     <ClInclude Include="src\sdl-util\resource_wrapper_implementation.hpp" />
     <ClInclude Include="src\sdl-util\sdl_conversion.hpp" />
@@ -184,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\render\canvas_implementation.cpp" />
     <ClCompile Include="src\render\renderer_implementation.cpp" />
     <ClCompile Include="src\sdl-util\resource_wrapper_implementation.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion.cpp" />
