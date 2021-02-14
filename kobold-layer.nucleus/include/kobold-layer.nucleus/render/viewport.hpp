@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <optional>
+
 #include "kobold-layer.nucleus/render/rectangle.hpp"
 
 namespace kobold_layer::nucleus::render
@@ -66,6 +68,32 @@ namespace kobold_layer::nucleus::render
 	    /// </summary>
 	    /// <param name="new_coordinates">The new coordinates.</param>
 		virtual void set_viewport_coordinates(rectangle<float> const& new_coordinates) = 0;
+
+		/// <summary>
+		/// <see cref="clipped_rects"/> defines the output of the <see cref="viewport.clip_to_viewport"/>
+		/// method.
+		/// </summary>
+		struct clipped_rects
+		{
+			rectangle<int> source;
+			rectangle<int> target;
+		};
+		
+		/// <summary>
+		/// Compute the rectangles clipped to this <see cref="viewport"/> from
+		/// the specified <paramref name="tex_source"/> and
+		/// <paramref name="world_destination"/>.
+		/// </summary>
+		/// <param name="tex_source">The texture source in pixels</param>
+		/// <param name="world_destination">The target destination in world coordinates.</param>
+		/// <returns>
+		/// If the specified world_destination falls within this <see cref="viewport"/>
+		/// then the clipped source in pixels and the target destination in viewport pixels
+		/// is returned. Otherwise none is returned.
+		/// </returns>
+		[[nodiscard]] virtual std::optional<clipped_rects> clip_to_viewport(
+			rectangle<int> const& tex_source,
+			rectangle<float> const& world_destination) const = 0;
 
 	protected:
 		viewport() = default;
