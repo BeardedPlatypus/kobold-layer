@@ -12,7 +12,7 @@ namespace kobold_layer::nucleus::texture
 	{
 		if (this->has_texture(key)) return;
 
-		this->texture_map_.emplace(
+		this->texture_map_.try_emplace(
 			key,
 			this->p_texture_factory_->construct_texture(texture_path.string()));
 	}

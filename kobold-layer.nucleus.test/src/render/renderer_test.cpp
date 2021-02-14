@@ -34,7 +34,7 @@ namespace kobold_layer::nucleus::render
     class render_copy_test : public ::testing::TestWithParam<render_copy_data>
     {
     public:
-        static std::vector<render_copy_data> get_data()
+        [[nodiscard]] static std::vector<render_copy_data> get_data()
         {
             return {
                 render_copy_data(false, false, SDL_FLIP_NONE),

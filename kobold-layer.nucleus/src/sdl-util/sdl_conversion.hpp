@@ -12,7 +12,7 @@ namespace kobold_layer::nucleus::sdl_util
     /// <returns>
     /// The corresponding <see cref="render::rectangle"/>.
     /// </returns>
-    render::rectangle<int> to_rectangle(SDL_Rect const* p_rect);
+    [[nodiscard]] render::rectangle<int> to_rectangle(SDL_Rect const* p_rect);
 
     /// <summary>
     /// Convert <paramref name="rectangle"/>  to a <see cref="SDL_Rect"/>.
@@ -21,6 +21,6 @@ namespace kobold_layer::nucleus::sdl_util
     /// <returns>
     /// The corresponding <see cref="SDL_Rect"/>.
     /// </returns>
-    SDL_Rect to_sdl_rect(render::rectangle<int> const& rectangle);
+    [[nodiscard]] SDL_Rect to_sdl_rect(render::rectangle<int> const& rectangle);
 }
 
