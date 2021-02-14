@@ -11,7 +11,7 @@ namespace kobold_layer::nucleus::render
 	TEST(world_test, constructor_sets_boundaries_correctly)
 	{
 		// Setup
-		rectangle<float> const new_boundaries = { 2.0f, 3.0f, 4.0f, 5.0f };
+		rectangle<float> const new_boundaries = { 2.0F, 3.0F, 4.0F, 5.0F };
 
 		// Call
 		auto const world = world_implementation(new_boundaries);
@@ -28,8 +28,8 @@ namespace kobold_layer::nucleus::render
 	TEST(world_test, set_boundaries_expected_results)
 	{
 		// Setup
-		auto world = world_implementation({ 2.0f, 3.0f, 4.0f, 5.0f });
-		rectangle<float> const new_boundaries = { 2.5f, 3.5f, 4.5f, 5.5f };
+		auto world = world_implementation({ 2.0F, 3.0F, 4.0F, 5.0F });
+		rectangle<float> const new_boundaries = { 2.5F, 3.5F, 4.5F, 5.5F };
 
 		// Call
 		world.set_boundaries(new_boundaries);
