@@ -197,7 +197,7 @@ namespace kobold_layer::nucleus::render
 				rectangle<float>(0.F, 0.F, 15.F, 15.F),
 				rectangle<float>(2.5F, 2.5F, 10.F, 10.F),
 				rectangle<int>(30, 40, 10, 20),
-				rectangle<float>(10.5F, 5.F, 1.F, 2.F),
+				rectangle<float>(12.6F, 5.F, 1.F, 2.F),
 				std::optional<viewport::clipped_rects>());
 		}
 		
@@ -221,7 +221,7 @@ namespace kobold_layer::nucleus::render
 				rectangle<float>(0.F, 0.F, 15.F, 15.F),
 				rectangle<float>(2.5F, 2.5F, 10.F, 10.F),
 				rectangle<int>(30, 40, 10, 20),
-				rectangle<float>(5.0F, 10.5F, 2.F, 1.F),
+				rectangle<float>(5.0F, 12.6F, 2.F, 1.F),
 				std::optional<viewport::clipped_rects>());
 		}
 		
@@ -229,7 +229,7 @@ namespace kobold_layer::nucleus::render
 		{
 			viewport::clipped_rects result = {
 				rectangle<int>(35, 40, 5, 20),
-				rectangle<int>(0, 50, 5, 20)
+				rectangle<int>(0, 25, 5, 20)
 			};
 			
 			return viewport_clip_to_viewport_data(
@@ -246,7 +246,7 @@ namespace kobold_layer::nucleus::render
 		{
 			viewport::clipped_rects result = {
 				rectangle<int>(30, 40, 5, 20),
-				rectangle<int>(95, 50, 5, 20)
+				rectangle<int>(95, 25, 5, 20)
 			};
 			
 			return viewport_clip_to_viewport_data(
@@ -263,7 +263,7 @@ namespace kobold_layer::nucleus::render
 		{
 			viewport::clipped_rects result = {
 				rectangle<int>(30, 50, 10, 10),
-				rectangle<int>(50, 0, 10, 10)
+				rectangle<int>(25, 0, 10, 10)
 			};
 			
 			return viewport_clip_to_viewport_data(
@@ -280,7 +280,7 @@ namespace kobold_layer::nucleus::render
 		{
 			viewport::clipped_rects result = {
 				rectangle<int>(30, 40, 10, 10),
-				rectangle<int>(50, 90, 10, 10)
+				rectangle<int>(25, 90, 10, 10)
 			};
 			
 			return viewport_clip_to_viewport_data(
@@ -294,10 +294,6 @@ namespace kobold_layer::nucleus::render
 		}
 	};
 
-	// clipped viewport left
-	// clipped viewport right
-	// clipped viewport up
-	// clipped viewport down
 	TEST_P(viewport_clip_test, clip_to_viewport_expected_results)
 	{
 		// Setup
