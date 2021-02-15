@@ -2,6 +2,7 @@
 #include "kobold-layer.nucleus/render/viewport.hpp"
 
 #include <memory>
+#include <tuple>
 
 #include "kobold-layer.nucleus/render/world.hpp"
 
@@ -47,5 +48,11 @@ namespace kobold_layer::nucleus::render
 
 		unsigned int render_width_;
 		unsigned int render_height_;
+
+        [[nodiscard]] bool has_fully_enclosed(rectangle<float> const& rect) const;
+        [[nodiscard]] bool has_intersection_with(rectangle<float> const& rect) const;
+
+		[[nodiscard]] std::tuple<rectangle<float>, rectangle<int>> clip_viewport_coordinates(rectangle<float> const&, rectangle<int> const&) const;
+		[[nodiscard]] rectangle<int> translate_to_render_coordinates(rectangle<float> const& world_dest) const;
 	};
 }
