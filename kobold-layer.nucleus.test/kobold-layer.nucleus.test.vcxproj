@@ -157,6 +157,7 @@
     <ClCompile Include="src\render\canvas_test.cpp" />
     <ClCompile Include="src\render\rectangle_test.cpp" />
     <ClCompile Include="src\render\renderer_test.cpp" />
+    <ClCompile Include="src\render\viewport_test.cpp" />
     <ClCompile Include="src\render\world_test.cpp" />
     <ClCompile Include="src\sdl-util\sdl_conversion_test.cpp" />
     <ClCompile Include="src\texture\texture_factory_test.cpp" />
