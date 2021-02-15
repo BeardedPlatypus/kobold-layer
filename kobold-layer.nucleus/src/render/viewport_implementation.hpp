@@ -11,7 +11,7 @@ namespace kobold_layer::nucleus::render
 	/// <see cref="viewport_implementation" /> implements the <see cref="viewport" /> interface.
 	/// </summary>
 	/// <seealso cref="viewport" />
-	class viewport_implementation : public viewport
+	class viewport_implementation final : public viewport
 	{
 	public:		
         /// <summary>
