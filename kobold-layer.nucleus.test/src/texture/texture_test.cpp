@@ -1,6 +1,6 @@
 #include "kobold-layer.nucleus.mock/sdl-util/resource_wrapper_mock.hpp"
 #include "kobold-layer.nucleus.mock/sdl-util/sdl_dispatcher_mock.hpp"
-#include "kobold-layer.nucleus.mock/render/renderer_mock.hpp"
+#include "kobold-layer.nucleus.mock/render/canvas_mock.hpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -58,13 +58,13 @@ namespace kobold_layer::nucleus::texture {
 
 		const auto texture = texture_implementation(std::move(p_resource_wrapper), p_dispatcher);
 
-		render::rectangle const src = render::rectangle(0, 1, 2, 3);
-		render::rectangle const dst = render::rectangle(4, 5, 6, 7);
+		render::rectangle<int> const src = render::rectangle(0, 1, 2, 3);
+		render::rectangle<float> const dst = render::rectangle(4.F, 5.F, 6.F, 7.F);
 		float const angle = 90.F;
 		bool const flip_vertically = false;
 		bool const flip_horizontally = true;
 
-		auto const p_renderer = std::make_shared<renderer_mock>();
+		auto const p_renderer = std::make_shared<canvas_mock>();
 		EXPECT_CALL(
 			*p_renderer.get(),
 			render_copy(sdl_tex, Ref(src), Ref(dst), angle, flip_horizontally, flip_vertically)).Times(1);

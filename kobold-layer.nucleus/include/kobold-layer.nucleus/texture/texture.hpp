@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 
+#include "kobold-layer.nucleus/render/canvas.hpp"
 #include "kobold-layer.nucleus/render/rectangle.hpp"
-#include "kobold-layer.nucleus/render/renderer.hpp"
 
 namespace kobold_layer::nucleus::texture {
 	/// <summary>
@@ -23,15 +23,15 @@ namespace kobold_layer::nucleus::texture {
 		/// <summary>
 		/// Renders this <see cref="texture"/> with <paramref name="renderer"/>.
 		/// </summary>
-		/// <param name="p_renderer">The renderer.</param>
-		/// <param name="clip">The clipping rectangle.</param>
-		/// <param name="dst">The destination rectangle.</param>
+		/// <param name="p_canvas">The canvas.</param>
+		/// <param name="clip">The clipping rectangle on the texture.</param>
+		/// <param name="dst">The destination in world coordinates.</param>
 		/// <param name="angle">The angle.</param>
 		/// <param name="flip_horizontally">if set to <c>true</c> [flip horizontally].</param>
 		/// <param name="flip_vertically">if set to <c>true</c> [flip vertically].</param>
-		virtual void render(std::shared_ptr<render::renderer> p_renderer,
+		virtual void render(std::shared_ptr<render::canvas> p_canvas,
 			render::rectangle<int> const& clip,
-			render::rectangle<int> const& dst,
+			render::rectangle<float> const& dst,
 			float angle,
 			bool flip_horizontally,
 			bool flip_vertically) const = 0;

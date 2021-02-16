@@ -13,14 +13,14 @@ namespace kobold_layer::nucleus::texture
 
 
 	void texture_implementation::render(
-		std::shared_ptr<render::renderer> const p_renderer,
+		std::shared_ptr<render::canvas> const p_canvas,
 		render::rectangle<int> const& clip,
-		render::rectangle<int> const& dst,
+		render::rectangle<float> const& dst,
 		float const angle,
 		bool const flip_horizontally,
 		bool const flip_vertically) const
 	{
-		p_renderer->render_copy(
+		p_canvas->render_copy(
 			this->p_texture_->get_resource(),
 			clip,
 			dst,

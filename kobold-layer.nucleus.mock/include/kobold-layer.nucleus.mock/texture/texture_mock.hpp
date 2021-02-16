@@ -9,9 +9,9 @@ public:
     MOCK_METHOD(
         void,
         render,
-        (std::shared_ptr<kobold_layer::nucleus::render::renderer>,
+        (std::shared_ptr<kobold_layer::nucleus::render::canvas>,
          kobold_layer::nucleus::render::rectangle<int> const&,
-         kobold_layer::nucleus::render::rectangle<int> const&,
+         kobold_layer::nucleus::render::rectangle<float> const&,
          float, bool, bool),
         (const));
     MOCK_METHOD(kobold_layer::nucleus::render::rectangle<int>, get_dimensions, (), (const));
