@@ -12,6 +12,6 @@ public:
          float, bool, bool),
 		(const));
 
-	MOCK_METHOD(void, render_present, (), (const));
-	MOCK_METHOD(void, render_clear, (), (const));
+	MOCK_METHOD(void, present, (), (const));
+	MOCK_METHOD(void, clear, (), (const));
 };
