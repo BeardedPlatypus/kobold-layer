@@ -1,7 +1,10 @@
 ﻿#include "pch.h"
 #include "kobold-layer.nucleus/view.hpp"
 
+#include "render/canvas_implementation.hpp"
 #include "render/renderer_implementation.hpp"
+#include "render/viewport_implementation.hpp"
+#include "render/world_implementation.hpp"
 #include "texture/texture_factory_implementation.hpp"
 
 namespace kobold_layer::nucleus {
@@ -27,7 +30,13 @@ namespace kobold_layer::nucleus {
 
         SDL_SetRenderDrawColor(renderer->get_resource(), 128, 216, 235, 255);
 
-        this->p_renderer_ = std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_);
+        render::rectangle<float> boundaries = { 0.F, 0.F, 1200.F, 600.F };
+        this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+
+        this->p_canvas_ =
+            std::make_unique<render::canvas_implementation>(
+                std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_),
+                std::make_unique<render::viewport_implementation>(this->p_world_, 1200, 600, boundaries));
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
@@ -53,7 +62,19 @@ namespace kobold_layer::nucleus {
                 -1,
                 SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-        this->p_renderer_ = std::make_unique<render::renderer_implementation>(renderer, p_dispatcher_);
+    	
+        int width;
+    	int height;
+    	
+        this->p_dispatcher_->get_window_size(this->p_window_->get_resource(), &width, &height);
+
+    	render::rectangle<float> boundaries = { 0.F, 0.F, static_cast<float>(width), static_cast<float>(height) };
+        this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+
+        this->p_canvas_ =
+            std::make_unique<render::canvas_implementation>(
+                std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_),
+                std::make_unique<render::viewport_implementation>(this->p_world_, width, height, boundaries));
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
@@ -72,27 +93,31 @@ namespace kobold_layer::nucleus {
             break;
         }
 
-        this->p_renderer_->render_clear();
+        this->p_canvas_->clear();
 	}
 
 	void view::render_texture(const std::string& texture_label) const
 	{
+    	// TODO: fix texture render behaviour here
         texture::texture const * const texture = p_tex_manager->get_texture(texture_label);
 
         int width;
     	int height;
     	
         this->p_dispatcher_->get_window_size(this->p_window_->get_resource(), &width, &height);
-        const auto window_rect = render::rectangle(0, 0, width, height);
+        auto const window_rect = render::rectangle<float>(0.F, 0.F, static_cast<float>(width), static_cast<float>(height));
 
         render::rectangle const tex_rect = texture->get_dimensions();
 
-        texture->render(this->p_renderer_, tex_rect, window_rect, 0.F, false, false);
+        texture->render(this->p_canvas_, 
+                        tex_rect, 
+                        window_rect, 
+                        0.F, false, false);
 	}
 
 	void view::finalise_frame() const
 	{
-        this->p_renderer_->render_present();
+        this->p_canvas_->present();
 	}
 
 	void view::update()
