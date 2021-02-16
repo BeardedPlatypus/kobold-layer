@@ -3,9 +3,9 @@
 
 namespace kobold_layer::nucleus::render
 {
-	canvas_implementation::canvas_implementation(std::shared_ptr<renderer> p_renderer, 
+	canvas_implementation::canvas_implementation(std::unique_ptr<renderer> p_renderer, 
 		                                         std::unique_ptr<viewport> p_viewport) :
-	    p_renderer_(p_renderer),
+	    p_renderer_(std::move(p_renderer)),
 	    p_viewport_(std::move(p_viewport)) { }
 
 	void canvas_implementation::render_copy(SDL_Texture* p_texture, 
