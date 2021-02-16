@@ -42,6 +42,9 @@
     <ClInclude Include="include\kobold-layer.nucleus.mock\render\world_mock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\kobold-layer.nucleus.mock\render\canvas_mock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
