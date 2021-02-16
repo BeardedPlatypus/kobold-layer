@@ -17,13 +17,13 @@ namespace kobold_layer::nucleus::render
 	TEST(canvas_test, present_calls_renderer)
 	{
 		// Setup
-		auto p_renderer = std::make_shared<renderer_mock>();
+		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), render_present()).Times(1);
 
 		auto p_viewport = std::make_unique<viewport_mock>();
 
 		canvas_implementation canvas = 
-			canvas_implementation(p_renderer, std::move(p_viewport));
+			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
 
 		// Call | Assert
 		canvas.present();
@@ -32,13 +32,13 @@ namespace kobold_layer::nucleus::render
 	TEST(canvas_test, clear_calls_renderer)
 	{
 		// Setup
-		auto p_renderer = std::make_shared<renderer_mock>();
+		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), render_clear()).Times(1);
 
 		auto p_viewport = std::make_unique<viewport_mock>();
 
 		canvas_implementation const canvas = 
-			canvas_implementation(p_renderer, std::move(p_viewport));
+			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
 
 		// Call | Assert
 		canvas.clear();
@@ -46,7 +46,7 @@ namespace kobold_layer::nucleus::render
 
 	TEST(canvas_test, render_copy_viewport_returns_none_does_not_call_renderer)
 	{
-		auto p_renderer = std::make_shared<renderer_mock>();
+		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), render_copy(_, _, _, _, _, _)).Times(0);
 		
 		rectangle<int> source_rect = { 1, 2, 3, 4 };
@@ -69,7 +69,7 @@ namespace kobold_layer::nucleus::render
 			.WillOnce(Return(std::optional<viewport::clipped_rects>()));
 		
 		canvas_implementation canvas = 
-			canvas_implementation(p_renderer, std::move(p_viewport));
+			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
 
 		auto* const p_sdl_texture = reinterpret_cast<SDL_Texture*>(48);
 
@@ -94,7 +94,7 @@ namespace kobold_layer::nucleus::render
 		const bool flip_horizontal = true;
 		const bool flip_vertical = true;
 		
-		auto p_renderer = std::make_shared<renderer_mock>();
+		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), 
 			render_copy(p_sdl_texture,
                         AllOf(
@@ -132,7 +132,7 @@ namespace kobold_layer::nucleus::render
 			.WillOnce(Return(std::make_optional(clipped_rects)));
 		
 		canvas_implementation canvas = 
-			canvas_implementation(p_renderer, std::move(p_viewport));
+			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
 
 
 		// Call | Assert
