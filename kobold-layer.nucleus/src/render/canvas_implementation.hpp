@@ -22,7 +22,7 @@ namespace kobold_layer::nucleus::render
 		/// <param name="p_renderer">Pointer to the renderer to use.</param>
 		/// <param name="p_viewport">Pointer to the viewport to use.</param>
 		canvas_implementation(std::unique_ptr<renderer> p_renderer,
-		                      std::unique_ptr<viewport> p_viewport);
+		                      std::shared_ptr<viewport const> p_viewport);
 
 		void render_copy(SDL_Texture* p_texture, 
 			             rectangle<int> const& texture_clip,
@@ -35,7 +35,7 @@ namespace kobold_layer::nucleus::render
 	
 	private:
 		std::unique_ptr<renderer> const p_renderer_;
-		std::unique_ptr<viewport> const p_viewport_;
+		std::shared_ptr<viewport const> const p_viewport_;
 	};
 	
 }

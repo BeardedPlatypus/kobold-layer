@@ -20,7 +20,7 @@ namespace kobold_layer::nucleus::render
 		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), render_present()).Times(1);
 
-		auto p_viewport = std::make_unique<viewport_mock>();
+		auto p_viewport = std::make_shared<viewport_mock>();
 
 		canvas_implementation canvas = 
 			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
@@ -35,7 +35,7 @@ namespace kobold_layer::nucleus::render
 		auto p_renderer = std::make_unique<renderer_mock>();
 		EXPECT_CALL(*(p_renderer.get()), render_clear()).Times(1);
 
-		auto p_viewport = std::make_unique<viewport_mock>();
+		auto p_viewport = std::make_shared<viewport_mock>();
 
 		canvas_implementation const canvas = 
 			canvas_implementation(std::move(p_renderer), std::move(p_viewport));
@@ -52,7 +52,7 @@ namespace kobold_layer::nucleus::render
 		rectangle<int> source_rect = { 1, 2, 3, 4 };
 		rectangle<float> world_rect = { 1.0F, 2.0F, 3.0F, 4.0F };
 
-		auto p_viewport = std::make_unique<viewport_mock>();
+		auto p_viewport = std::make_shared<viewport_mock>();
 		EXPECT_CALL(*(p_viewport.get()), 
 			clip_to_viewport(
                 AllOf(
@@ -115,7 +115,7 @@ namespace kobold_layer::nucleus::render
 		rectangle<int> source_rect = { 1, 2, 3, 4 };
 		rectangle<float> world_rect = { 1.0F, 2.0F, 3.0F, 4.0F };
 
-		auto p_viewport = std::make_unique<viewport_mock>();
+		auto p_viewport = std::make_shared<viewport_mock>();
 		EXPECT_CALL(*(p_viewport.get()), 
 			clip_to_viewport(
                 AllOf(

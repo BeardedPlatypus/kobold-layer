@@ -4,7 +4,7 @@
 namespace kobold_layer::nucleus::render
 {
 	canvas_implementation::canvas_implementation(std::unique_ptr<renderer> p_renderer, 
-		                                         std::unique_ptr<viewport> p_viewport) :
+		                                         std::shared_ptr<viewport const> p_viewport) :
 	    p_renderer_(std::move(p_renderer)),
 	    p_viewport_(std::move(p_viewport)) { }
 
