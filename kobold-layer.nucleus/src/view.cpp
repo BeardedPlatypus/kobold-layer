@@ -82,7 +82,7 @@ namespace kobold_layer::nucleus {
 
         this->p_canvas_ =
             std::make_unique<render::canvas_implementation>(
-                std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_),
+                std::make_unique<render::renderer_implementation>(renderer, p_dispatcher_),
                 this->p_viewport_);
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
