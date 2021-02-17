@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\kobold-layer.clr\rectangle.hpp" />
     <ClInclude Include="include\kobold-layer.clr\view.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
