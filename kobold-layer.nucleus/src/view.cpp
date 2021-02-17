@@ -10,7 +10,13 @@
 namespace kobold_layer::nucleus {
     void view::initialise()
     {
-        this->p_dispatcher_->init_sdl(SDL_INIT_VIDEO);
+        int const init_result = this->p_dispatcher_->init_sdl(SDL_INIT_VIDEO);
+    	
+    	if (init_result != 0)
+    	{
+            return;
+    	}
+    	
         atexit(SDL_Quit);
 
         const std::string title = "SDL Native App";
