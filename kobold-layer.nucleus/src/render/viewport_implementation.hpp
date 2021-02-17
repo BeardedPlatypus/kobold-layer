@@ -23,7 +23,7 @@ namespace kobold_layer::nucleus::render
         /// <param name="render_height">Height of the render.</param>
         /// <param name="viewport_coordinates">The viewport coordinates.</param>
 		viewport_implementation(
-			std::shared_ptr<world> p_world,
+			std::shared_ptr<world const> p_world,
 			unsigned int render_width,
 			unsigned int render_height,
 			rectangle<float> const& viewport_coordinates);
@@ -42,7 +42,7 @@ namespace kobold_layer::nucleus::render
 			rectangle<float> const& world_destination) const override;
 
 	private:
-		std::shared_ptr<world> p_world_;
+		std::shared_ptr<world const> p_world_;
 
 		std::unique_ptr<rectangle<float>> p_viewport_coordinates_;
 

@@ -5,7 +5,7 @@
 
 namespace kobold_layer::nucleus::render
 {
-	viewport_implementation::viewport_implementation(std::shared_ptr<world> p_world,
+	viewport_implementation::viewport_implementation(std::shared_ptr<world const> p_world,
 		                                             unsigned int const render_width,
 		                                             unsigned int const render_height,
 	                                                 rectangle<float> const& viewport_coordinates) :
