@@ -31,12 +31,13 @@ namespace kobold_layer::nucleus {
         SDL_SetRenderDrawColor(renderer->get_resource(), 128, 216, 235, 255);
 
         render::rectangle<float> boundaries = { 0.F, 0.F, 1200.F, 600.F };
-        this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+    	this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+        this->p_viewport_ = std::make_shared<render::viewport_implementation>(this->p_world_, 1200, 600, boundaries);
 
         this->p_canvas_ =
             std::make_unique<render::canvas_implementation>(
                 std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_),
-                std::make_unique<render::viewport_implementation>(this->p_world_, 1200, 600, boundaries));
+                this->p_viewport_);
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
@@ -69,12 +70,14 @@ namespace kobold_layer::nucleus {
         this->p_dispatcher_->get_window_size(this->p_window_->get_resource(), &width, &height);
 
     	render::rectangle<float> boundaries = { 0.F, 0.F, static_cast<float>(width), static_cast<float>(height) };
-        this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+
+    	this->p_world_ = std::make_shared<render::world_implementation>(boundaries);
+        this->p_viewport_ = std::make_shared<render::viewport_implementation>(this->p_world_, width, height, boundaries);
 
         this->p_canvas_ =
             std::make_unique<render::canvas_implementation>(
                 std::make_unique<render::renderer_implementation>(std::move(renderer), p_dispatcher_),
-                std::make_unique<render::viewport_implementation>(this->p_world_, width, height, boundaries));
+                this->p_viewport_);
 
         auto texture_factory = std::make_unique<texture::texture_factory_implementation>(renderer, this->p_dispatcher_);
         this->p_tex_manager = std::make_unique<texture::texture_manager_implementation>(std::move(texture_factory));
@@ -155,5 +158,15 @@ namespace kobold_layer::nucleus {
 	void view::set_world_area(render::rectangle<float> const& new_area)
 	{
         this->p_world_->set_boundaries(new_area);
+	}
+	
+	render::rectangle<float> view::get_viewport_area() const
+	{
+        return this->p_viewport_->get_viewport_coordinates();
+	}
+
+	void view::set_viewport_area(render::rectangle<float> const& new_area)
+	{
+        this->p_viewport_->set_viewport_coordinates(new_area);
 	}
 }

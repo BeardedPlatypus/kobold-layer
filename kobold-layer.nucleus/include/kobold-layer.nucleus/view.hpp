@@ -5,6 +5,7 @@
 #include "../src/sdl-util/sdl_dispatcher_implementation.hpp"
 
 #include "kobold-layer.nucleus/render/canvas.hpp"
+#include "kobold-layer.nucleus/render/viewport.hpp"
 #include "kobold-layer.nucleus/render/world.hpp"
 #include "../src/texture/texture_manager_implementation.hpp"
 
@@ -89,11 +90,28 @@ namespace kobold_layer::nucleus {
 		/// </summary>
 		/// <param name="new_area">The new world coordinates.</param>
 		void set_world_area(render::rectangle<float> const& new_area);
+
+		/// <summary>
+	    /// Get the viewport coordinates of this <see cref="view"/>.
+	    /// </summary>
+	    /// <returns>
+	    /// The world coordinates of this <see cref="view"/>.
+	    /// </returns>
+		render::rectangle<float> get_viewport_area() const;
+
+		/// <summary>
+		/// Set the viewport area of this <see cref="view"/> to
+		/// <paramref name="new_area"/>.
+		/// </summary>
+		/// <param name="new_area">The new viewport coordinates.</param>
+		void set_viewport_area(render::rectangle<float> const& new_area);
+
 	private:
 		std::shared_ptr<sdl_util::sdl_dispatcher> p_dispatcher_ =
 			std::make_shared<sdl_util::sdl_dispatcher_implementation>();
 
 		std::shared_ptr<render::world> p_world_;
+		std::shared_ptr<render::viewport> p_viewport_;
 		std::shared_ptr<render::canvas> p_canvas_;
 		std::unique_ptr<texture::texture_manager> p_tex_manager;
 
