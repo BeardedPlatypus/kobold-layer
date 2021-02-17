@@ -64,8 +64,31 @@ namespace kobold_layer::nucleus {
         /// <param name="key">The key.</param>
         /// <param name="texture_path">The texture path.</param>
 		void load_texture(std::string const& key, std::filesystem::path const& texture_path);
-
+		
+        /// <summary>
+        /// Unloads the texture associated with the specified <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <remarks>
+        /// If no texture is associated with <paramref name="key"/> then
+        /// nothing will happen.
+        /// </remarks>
 		void unload_texture(std::string const& key);
+
+		/// <summary>
+		/// Get the world coordinates of this <see cref="view"/>.
+		/// </summary>
+		/// <returns>
+		/// The world coordinates of this <see cref="view"/>.
+		/// </returns>
+		render::rectangle<float> get_world_area() const;
+
+		/// <summary>
+		/// Set the world area of this <see cref="view"/> to
+		/// <paramref name="new_area"/>.
+		/// </summary>
+		/// <param name="new_area">The new world coordinates.</param>
+		void set_world_area(render::rectangle<float> const& new_area);
 	private:
 		std::shared_ptr<sdl_util::sdl_dispatcher> p_dispatcher_ =
 			std::make_shared<sdl_util::sdl_dispatcher_implementation>();

@@ -142,8 +142,18 @@ namespace kobold_layer::nucleus {
         this->p_tex_manager->load_texture(key, texture_path);
 	}
 
-	void view::unload_texture(std::string const& key)
+    void view::unload_texture(std::string const& key)
     {
         this->p_tex_manager->unload_texture(key);
     }
+
+	render::rectangle<float> view::get_world_area() const
+	{
+        return this->p_world_->get_boundaries();
+	}
+
+	void view::set_world_area(render::rectangle<float> const& new_area)
+	{
+        this->p_world_->set_boundaries(new_area);
+	}
 }
