@@ -7,7 +7,7 @@ namespace kobold_layer::nucleus::render
     /// upper left.
     /// </summary>
     template <typename T>
-    class rectangle
+    class rectangle sealed
     {
     public:
         /// <summary>

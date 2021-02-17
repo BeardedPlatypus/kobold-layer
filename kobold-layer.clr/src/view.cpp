@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "kobold-layer.clr/view.hpp"
+#include "kobold-layer.nucleus/render/rectangle.hpp"
 
 #include <msclr/marshal.h>
 
@@ -67,5 +68,37 @@ namespace kobold_layer::clr {
 		std::string const native_key = marshal_context.marshal_as<const char*>(key);
 		
 		this->p_view_->unload_texture(native_key);
+	}
+
+	template <typename T>
+	rectangle<T>^ to_rectangle(nucleus::render::rectangle<T> const& rect)
+	{
+		return gcnew rectangle<T>(rect.x, rect.y, rect.width, rect.height);
+	}
+
+	template <typename T>
+	nucleus::render::rectangle<T> from_rectangle(rectangle<T>^ rect)
+	{
+		return nucleus::render::rectangle<T>(rect->x, rect->y, rect->width, rect->height);
+	}
+
+	rectangle<float>^ view::get_world_area()
+	{
+		return to_rectangle<float>(this->p_view_->get_world_area());
+	}
+
+	void view::set_world_area(rectangle<float>^ new_area)
+	{
+		this->p_view_->set_world_area(from_rectangle(new_area));
+	}
+
+	rectangle<float>^ view::get_viewport_area()
+	{
+		return to_rectangle<float>(this->p_view_->get_viewport_area());
+	}
+
+	void view::set_viewport_area(rectangle<float>^ new_area)
+	{
+		this->p_view_->set_viewport_area(from_rectangle(new_area));
 	}
 }
