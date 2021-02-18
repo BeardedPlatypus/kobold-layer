@@ -70,34 +70,32 @@ namespace kobold_layer::clr {
 		this->p_view_->unload_texture(native_key);
 	}
 
-	template <typename T>
-	rectangle<T>^ to_rectangle(nucleus::render::rectangle<T> const& rect)
+	rectangle^ to_rectangle(nucleus::render::rectangle<float> const& rect)
 	{
-		return gcnew rectangle<T>(rect.x, rect.y, rect.width, rect.height);
+		return gcnew rectangle(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	template <typename T>
-	nucleus::render::rectangle<T> from_rectangle(rectangle<T>^ rect)
+	nucleus::render::rectangle<float> from_rectangle(rectangle^ rect)
 	{
-		return nucleus::render::rectangle<T>(rect->x, rect->y, rect->width, rect->height);
+		return nucleus::render::rectangle<float>(rect->x, rect->y, rect->width, rect->height);
 	}
 
-	rectangle<float>^ view::get_world_area()
+	rectangle^ view::get_world_area()
 	{
-		return to_rectangle<float>(this->p_view_->get_world_area());
+		return to_rectangle(this->p_view_->get_world_area());
 	}
 
-	void view::set_world_area(rectangle<float>^ new_area)
+	void view::set_world_area(rectangle^ new_area)
 	{
 		this->p_view_->set_world_area(from_rectangle(new_area));
 	}
 
-	rectangle<float>^ view::get_viewport_area()
+	rectangle^ view::get_viewport_area()
 	{
-		return to_rectangle<float>(this->p_view_->get_viewport_area());
+		return to_rectangle(this->p_view_->get_viewport_area());
 	}
 
-	void view::set_viewport_area(rectangle<float>^ new_area)
+	void view::set_viewport_area(rectangle^ new_area)
 	{
 		this->p_view_->set_viewport_area(from_rectangle(new_area));
 	}
